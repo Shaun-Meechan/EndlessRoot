@@ -13,6 +13,8 @@ public class TerrainManager : MonoBehaviour
 
     int tileCounter = -10;
 
+    const int maxY = -100000;
+
         // Start is called before the first frame update
     void Start()
     {
@@ -38,11 +40,25 @@ public class TerrainManager : MonoBehaviour
 
     public void spawnTile()
     {
+        //TODO: How do we stop floating point loss of precision but keep the trail
         firstAvaliableTile.transform.SetPositionAndRotation(new Vector3(0, 0 + tileCounter, 0), Quaternion.identity);
         firstAvaliableTile.SetActive(true);
         firstAvaliableTile = firstAvaliableTile.GetComponent<Terrain>().getNextTile();
         tileCounter -= 10;
 
+        if(tileCounter <= maxY)
+        {
+            tileCounter = -10;
+        }
+
+        //TODO: We also might want to spawn some power ups
+        int randomChance = Random.Range(0, 11);
+
+        if(randomChance >= 0)
+        {
+            //Spawn power up
+            //Instantiate(powerUp, new Vector3(Random.Range(-8, 8), 0 + (tileCounter + 10), 0), Quaternion.identity);
+        }
     }
 
     // Update is called once per frame
