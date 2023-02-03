@@ -21,6 +21,7 @@ public class TerrainManager : MonoBehaviour
             GameObject go = Instantiate(tileObject, transform.position, Quaternion.identity);
             tileObjects[i] = go;
             go.SetActive(false);
+            go.GetComponent<Terrain>().setTerrainManager(this);
         }
 
         for (int i = 0; i < maxTiles - 1; i++)
@@ -31,6 +32,7 @@ public class TerrainManager : MonoBehaviour
         firstAvaliableTile = tileObjects[0];
         tileObjects[maxTiles - 1].GetComponent<Terrain>().setNextTile(null);
 
+        spawnTile();
         spawnTile();
     }
 
@@ -53,6 +55,7 @@ public class TerrainManager : MonoBehaviour
                 tileObjects[i].GetComponent<Terrain>().setNextTile(firstAvaliableTile);
                 firstAvaliableTile = tileObjects[i];
                 firstAvaliableTile.SetActive(false);
+                firstAvaliableTile.GetComponent<Terrain>().setisBehind(false);
             }
         }
     }

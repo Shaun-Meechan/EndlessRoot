@@ -12,15 +12,21 @@ public class Terrain : MonoBehaviour
     public bool getIsBehind() { return isBehind; }
     public void setisBehind(bool value) { isBehind = value; }
 
-    // Start is called before the first frame update
-    void Start()
+    TerrainManager terrainManager;
+    public void setTerrainManager(TerrainManager input) { terrainManager = input; }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        Debug.Log("Collision!");
+        StartCoroutine(behindTimer());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator behindTimer()
     {
-        
+        yield return new WaitForSeconds(3);
+        isBehind = true;
+        terrainManager.spawnTile();
     }
+
+
 }
