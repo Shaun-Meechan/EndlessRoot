@@ -17,6 +17,10 @@ public class Terrain : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.gameObject.CompareTag("Terrain"))
+        {
+            return;
+        }
         Debug.Log("Collision!");
         StartCoroutine(behindTimer());
     }

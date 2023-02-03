@@ -237,7 +237,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileObject: {fileID: 245664722774364548, guid: d88ad7fc0f611e44ab0ebed5371ee802, type: 3}
-  powerUp: {fileID: 8156129171428640042, guid: c9dd93e79d6c638469a6c850a52df60d, type: 3}
 --- !u!4 &1490116573
 Transform:
   m_ObjectHideFlags: 0
@@ -375,6 +374,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 245664722774364548, guid: d88ad7fc0f611e44ab0ebed5371ee802, type: 3}
       propertyPath: m_Name
+      value: Terrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 245664722774364548, guid: d88ad7fc0f611e44ab0ebed5371ee802, type: 3}
+      propertyPath: m_TagString
       value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 344234397234517052, guid: d88ad7fc0f611e44ab0ebed5371ee802, type: 3}

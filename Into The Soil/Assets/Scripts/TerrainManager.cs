@@ -59,6 +59,19 @@ public class TerrainManager : MonoBehaviour
             //Spawn power up
             //Instantiate(powerUp, new Vector3(Random.Range(-8, 8), 0 + (tileCounter + 10), 0), Quaternion.identity);
         }
+
+    }
+
+
+    //Called when the game is over to show all tiles
+    public void showAlltiles()
+    {
+        Vector3 spawnPosition = new Vector3(0, -10, 0);
+        for (int i = -10; i > tileCounter; i-= 10)
+        {
+            spawnPosition.y = i;
+            Instantiate(tileObject, spawnPosition, Quaternion.identity);
+        }
     }
 
     // Update is called once per frame
