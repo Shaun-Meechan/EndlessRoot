@@ -18,6 +18,9 @@ public class RootMovement : MonoBehaviour
 
     private Dir currentDir;
 
+
+
+
     // Start is called before the first frame update
     void Start()
     {
