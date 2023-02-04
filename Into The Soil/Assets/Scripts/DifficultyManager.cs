@@ -31,7 +31,7 @@ public class DifficultyManager : MonoBehaviour
     private void Start()
     {
         Initialise();
-        difficultyTimer.StartTimer(45,IncreaseDifficulty, true);
+        difficultyTimer.StartTimer(10,IncreaseDifficulty, true);
     }
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public class DifficultyManager : MonoBehaviour
 
     void IncreaseDifficulty()
     {
-        if(currentDifficulty >= 5)
+        if(currentDifficulty >= 10)
         {
             difficultyTimer.Dispose();
             return;
