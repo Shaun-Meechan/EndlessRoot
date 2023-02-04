@@ -28,9 +28,10 @@ public class EnemyManager : MonoBehaviour
         enemyObjects[maxEnemies - 1].GetComponent<EnemyController>().setNextEnemy(null);
     }
 
-    public void spawnEnemy(float YValue)
+    public void spawnEnemy(float YValue, GameObject tile)
     {
-        firstAvaliableEnemy.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 8), 0 + YValue, 0), Quaternion.identity);
+        firstAvaliableEnemy.transform.parent = tile.transform;
+        firstAvaliableEnemy.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4,5)), 0), Quaternion.identity);
         firstAvaliableEnemy.SetActive(true);
         firstAvaliableEnemy = firstAvaliableEnemy.GetComponent<EnemyController>().getNextEnemy();
     }
