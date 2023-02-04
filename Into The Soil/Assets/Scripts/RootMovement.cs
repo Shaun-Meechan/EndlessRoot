@@ -12,7 +12,7 @@ public class RootMovement : MonoBehaviour
     public delegate void Action(Dir lastDir);
     //config
     [SerializeField]
-    private float speed = 2.0f;
+    private float speed = 3.0f;
 
     public Vector2Int direction;
 
@@ -90,6 +90,11 @@ public class RootMovement : MonoBehaviour
             case Dir.Left: direction = new Vector2Int(-1, 0); currentDir = Dir.Left; transform.eulerAngles = new Vector3(0, 0, -90); cameraController.stopMoving(); break;    
             default: break;
         }
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
     }
 
     Dir GetOpposite(Dir dir)
