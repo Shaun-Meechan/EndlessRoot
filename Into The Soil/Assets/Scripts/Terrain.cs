@@ -28,6 +28,7 @@ public class Terrain : MonoBehaviour
     IEnumerator behindTimer()
     {
         yield return new WaitForSeconds(3);
+        GetComponentInChildren<EnemyController>().setIsBehind(true);
         isBehind = true;
         terrainManager.spawnTile();
     }

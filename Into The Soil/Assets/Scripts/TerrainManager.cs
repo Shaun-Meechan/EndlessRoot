@@ -11,6 +11,8 @@ public class TerrainManager : MonoBehaviour
 
     GameObject firstAvaliableTile;
 
+    public EnemyManager enemyManager;
+
     int tileCounter = -10;
 
     const int maxY = -100000;
@@ -42,6 +44,14 @@ public class TerrainManager : MonoBehaviour
     {
         //TODO: How do we stop floating point loss of precision but keep the trail
         firstAvaliableTile.transform.SetPositionAndRotation(new Vector3(0, 0 + tileCounter, 0), Quaternion.identity);
+        int randomChance = Random.Range(0, 11);
+
+        if(randomChance >= 0)
+        {
+            //Spawn power up
+            //Instantiate(powerUp, new Vector3(Random.Range(-8, 8), 0 + (tileCounter + 10), 0), Quaternion.identity);
+            enemyManager.spawnEnemy(tileCounter, firstAvaliableTile);
+        }
         firstAvaliableTile.SetActive(true);
         firstAvaliableTile = firstAvaliableTile.GetComponent<Terrain>().getNextTile();
         tileCounter -= 10;
@@ -51,14 +61,6 @@ public class TerrainManager : MonoBehaviour
             tileCounter = -10;
         }
 
-        //TODO: We also might want to spawn some power ups
-        int randomChance = Random.Range(0, 11);
-
-        if(randomChance >= 0)
-        {
-            //Spawn power up
-            //Instantiate(powerUp, new Vector3(Random.Range(-8, 8), 0 + (tileCounter + 10), 0), Quaternion.identity);
-        }
 
     }
 
