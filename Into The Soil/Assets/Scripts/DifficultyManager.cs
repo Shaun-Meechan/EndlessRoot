@@ -35,6 +35,7 @@ public class DifficultyManager : MonoBehaviour
         Initialise();
         difficultyTimer.StartTimer(45,IncreaseDifficulty, true);
         cameraController = Camera.main.GetComponent<CameraController>();
+
     }
 
     // Update is called once per frame
@@ -48,7 +49,7 @@ public class DifficultyManager : MonoBehaviour
 
     void IncreaseDifficulty()
     {
-        if(currentDifficulty >= 5)
+        if(currentDifficulty >= 10)
         {
             difficultyTimer.Dispose();
             return;
