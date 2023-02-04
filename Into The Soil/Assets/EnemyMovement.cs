@@ -18,7 +18,7 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
-        transform.localPosition = new Vector3(Mathf.Lerp(minimum, maximum, t), transform.position.y, 0);
+        transform.localPosition = new Vector3(Mathf.Lerp(minimum, maximum, t), transform.localPosition.y, 0);
 
         t += speed * Time.deltaTime;
 
