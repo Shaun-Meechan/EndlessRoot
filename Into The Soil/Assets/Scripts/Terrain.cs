@@ -18,19 +18,66 @@ public class Terrain : MonoBehaviour
     public void setWalls(GameObject walls) { sideWalls = walls; }
     GameObject sideWalls;
 
+    SpriteRenderer spriteRenderer;
+    bool shouldCheckIfVisible = false;
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Terrain"))
         {
             return;
         }
-        Debug.Log("Collision!");
-        StartCoroutine(behindTimer());
+        shouldCheckIfVisible = true;
+    }
+
+    private void Update()
+    {
+        if(shouldCheckIfVisible)
+        {
+            if(!spriteRenderer.isVisible)
+            {
+                shouldCheckIfVisible = false;
+                despawn();
+            }
+        }
+    }
+
+    void despawn()
+    {
+        Debug.Log("Spawned new tile");
+        for (int i = 0; i < 4; i++)
+        {
+            if (GetComponentInChildren<Rock>())
+            {
+                GetComponentInChildren<Rock>().setIsBehind(true);
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (GetComponentInChildren<EnemyController>())
+        {
+            GetComponentInChildren<EnemyController>().setIsBehind(true);
+        }
+
+        sideWalls.GetComponent<Wall>().setIsBehind(true);
+
+        isBehind = true;
+        terrainManager.spawnTile();
+
     }
 
     IEnumerator behindTimer()
     {
-        yield return new WaitForSeconds(3);
+        Debug.Log("Spawned new tile");
+        //yield return new WaitForSeconds(0);
         for (int i = 0; i < 4; i++)
         {
             if(GetComponentInChildren<Rock>())
@@ -52,6 +99,8 @@ public class Terrain : MonoBehaviour
 
         isBehind = true;
         terrainManager.spawnTile();
+
+        yield return null;
     }
 
 
