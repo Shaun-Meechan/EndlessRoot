@@ -30,6 +30,10 @@ public class EnemyManager : MonoBehaviour
 
     public void spawnEnemy(float YValue, GameObject tile)
     {
+        if(firstAvaliableEnemy == null)
+        {
+            return;
+        }
         firstAvaliableEnemy.transform.parent = tile.transform;
         firstAvaliableEnemy.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4,5)), 0), Quaternion.identity);
         firstAvaliableEnemy.SetActive(true);
