@@ -12,6 +12,8 @@ public class TailGeneration : MonoBehaviour
 
     private EdgeCollider2D edgeCollider;
 
+    private bool isAllowedFollow = true;
+
 
     [SerializeField]
     private int pivot = 1;
@@ -31,7 +33,8 @@ public class TailGeneration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FollowRootCap();
+        if(isAllowedFollow)
+            FollowRootCap();
     }
 
     void Initialise()
@@ -88,6 +91,11 @@ public class TailGeneration : MonoBehaviour
         edgeCollider.GetPoints(temp);
         temp.Add(loc);
         edgeCollider.SetPoints(temp);
+    }
+
+    public void SetIsAllowedFollow(bool value)
+    {
+        isAllowedFollow = value;
     }
 
 }
