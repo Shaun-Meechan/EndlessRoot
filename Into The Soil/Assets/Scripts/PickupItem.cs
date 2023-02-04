@@ -17,10 +17,11 @@ public abstract class PickupItem : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Debug.LogError("This is " + itemType.ToString());
+            UpdateHealth(other.gameObject);
         }
     }
 
     public abstract type GetItemType();
 
-    public abstract void UpdateHealth();
+    public abstract void UpdateHealth(GameObject player);
 }

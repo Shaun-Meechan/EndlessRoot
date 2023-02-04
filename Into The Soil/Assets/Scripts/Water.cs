@@ -12,7 +12,7 @@ public class Water : PickupItem
         return itemType;
     }
 
-    public override void UpdateHealth()
+    public override void UpdateHealth(GameObject player)
     {
 
     }
