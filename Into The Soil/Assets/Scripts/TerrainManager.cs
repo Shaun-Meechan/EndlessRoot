@@ -11,6 +11,8 @@ public class TerrainManager : MonoBehaviour
 
     GameObject firstAvaliableTile;
 
+    public EnemyManager enemyManager;
+
     int tileCounter = -10;
 
     const int maxY = -100000;
@@ -58,6 +60,7 @@ public class TerrainManager : MonoBehaviour
         {
             //Spawn power up
             //Instantiate(powerUp, new Vector3(Random.Range(-8, 8), 0 + (tileCounter + 10), 0), Quaternion.identity);
+            enemyManager.spawnEnemy(tileCounter + 10);
         }
 
     }
