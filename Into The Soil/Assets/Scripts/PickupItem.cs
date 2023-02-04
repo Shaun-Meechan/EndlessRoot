@@ -8,18 +8,21 @@ public abstract class PickupItem : MonoBehaviour
     {
         water,
         nutrition,
+        score,
     }
 
     public type itemType;
 
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.LogError("This is " + itemType.ToString());
-            UpdateHealth(other.gameObject);
-        }
-    }
+    //public void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.gameObject.tag == "Player")
+    //    {
+    //        Debug.LogError("This is " + itemType.ToString());
+    //        UpdateHealth(other.gameObject);
+    //    }
+    //}
+
+    public abstract void OnTriggerEnter2D(Collider2D other);
 
     public abstract type GetItemType();
 
