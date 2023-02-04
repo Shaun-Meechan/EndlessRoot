@@ -115,6 +115,7 @@ public class TerrainManager : MonoBehaviour
         {
             spawnPosition.y = i;
             Instantiate(tileObject, spawnPosition, Quaternion.identity);
+            Instantiate(wallObject, spawnPosition, Quaternion.identity);
         }
     }
 

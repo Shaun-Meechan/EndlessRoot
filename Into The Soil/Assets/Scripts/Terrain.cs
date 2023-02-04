@@ -33,7 +33,6 @@ public class Terrain : MonoBehaviour
             return;
         }
         shouldCheckIfVisible = true;
-        Debug.Log("Collision!");
     }
 
     private void Update()
@@ -51,7 +50,6 @@ public class Terrain : MonoBehaviour
     void despawn()
     {
         Debug.Log("Spawned new tile");
-        //yield return new WaitForSeconds(0);
         for (int i = 0; i < 4; i++)
         {
             if (GetComponentInChildren<Rock>())

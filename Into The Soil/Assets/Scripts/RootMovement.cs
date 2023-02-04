@@ -22,6 +22,8 @@ public class RootMovement : MonoBehaviour
 
     private CameraController cameraController;
 
+    public bool canMove = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +37,11 @@ public class RootMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!canMove)
+        {
+            return;
+        }
+
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             ChangeDirection(Dir.Up);
