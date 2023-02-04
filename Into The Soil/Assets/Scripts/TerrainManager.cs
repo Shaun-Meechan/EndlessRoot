@@ -5,14 +5,14 @@ using UnityEngine;
 public class TerrainManager : MonoBehaviour
 {
 
-    const int maxTiles = 4;
+    const int maxTiles = 5;
     public GameObject tileObject;
     GameObject[] tileObjects = new GameObject[maxTiles];
 
     GameObject firstAvaliableTile;
 
     //Walls come in pairs
-    const int maxWalls = 3;
+    const int maxWalls = 4;
     public GameObject wallObject;
     GameObject[] walls = new GameObject[maxWalls];
 
@@ -61,6 +61,7 @@ public class TerrainManager : MonoBehaviour
         firstAvaliableWall = walls[0];
         walls[maxWalls - 1].GetComponent<Wall>().setNextWall(null);
 
+        spawnTile();
         spawnTile();
         spawnTile();
     }
