@@ -10,9 +10,11 @@ public static class RootDataKeeper
     [SerializeField]
     private static int maxRoots = 10;
 
-    private static List<SpriteShape> roots = new List<SpriteShape>();
+    private static List<System.Reflection.FieldInfo[]> allFields;
 
-    public static void StoreShape(SpriteShape newRoots)
+    private static List<Spline> roots = new List<Spline>();
+
+    public static void StoreShape(Spline newRoots)
     {
         if (newRoots != null)
         {
@@ -26,8 +28,32 @@ public static class RootDataKeeper
         }
     }
 
+    public static void StoreField(System.Reflection.FieldInfo[] newRoots)
+    {
+        if (newRoots != null)
+        {
+            if (allFields.Count < maxRoots)
+                allFields.Add(newRoots);
+            else
+            {
+                allFields.RemoveAt(0);
+                allFields.Add(newRoots);
+            }
+        }
+    }
+
     public static int GetNumOfShape()
     {
         return roots.Count;
+    }
+
+    public static List<Spline> GetAllRoots()
+    {
+        return new List<Spline>(roots);
+    }
+
+    public static List<System.Reflection.FieldInfo[]> GetFields()
+    {
+        return allFields;
     }
 }
