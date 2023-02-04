@@ -2,23 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum Dir
+public enum Dir
 {
     Up, Down, Left, Right, err
 }
 
 public class RootMovement : MonoBehaviour
 {
+    public delegate void Action(Dir lastDir);
     //config
     [SerializeField]
-    private float speed = 1.0f;
+    private float speed = 2.0f;
 
     [SerializeField]
     private Vector2Int direction;
 
     private Dir currentDir;
 
-
+    public Action OnDirChange;
 
 
     // Start is called before the first frame update
@@ -76,12 +77,14 @@ public class RootMovement : MonoBehaviour
             return;
         if (dir == GetOpposite(currentDir))
             return;
+        if (OnDirChange != null)
+            OnDirChange(currentDir);
         switch(dir)
         {
-            case Dir.Up: direction = new Vector2Int(0, 1) ; currentDir = Dir.Up; break;
-            case Dir.Down:direction = new Vector2Int(0, -1); currentDir = Dir.Down; break;
-            case Dir.Right:direction = new Vector2Int(1, 0); currentDir = Dir.Right; break;
-            case Dir.Left: direction = new Vector2Int(-1, 0); currentDir = Dir.Left; break;    
+            case Dir.Up: direction = new Vector2Int(0, 1) ; currentDir = Dir.Up; transform.eulerAngles = new Vector3(0,0,180); break;
+            case Dir.Down:direction = new Vector2Int(0, -1); currentDir = Dir.Down; transform.eulerAngles = new Vector3(0, 0, 0); break;
+            case Dir.Right:direction = new Vector2Int(1, 0); currentDir = Dir.Right; transform.eulerAngles = new Vector3(0, 0, 90); break;
+            case Dir.Left: direction = new Vector2Int(-1, 0); currentDir = Dir.Left; transform.eulerAngles = new Vector3(0, 0, -90); break;    
             default: break;
         }
     }
