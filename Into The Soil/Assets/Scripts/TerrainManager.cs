@@ -52,8 +52,16 @@ public class TerrainManager : MonoBehaviour
             //Spawn power up
             //Instantiate(powerUp, new Vector3(Random.Range(-8, 8), 0 + (tileCounter + 10), 0), Quaternion.identity);
             enemyManager.spawnEnemy(tileCounter, firstAvaliableTile);
+        }
+
+        //Spawn some rock
+        int rocksToSpawn = Random.Range(0, 5);
+
+        for (int i = 0; i < rocksToSpawn; i++)
+        {
             rockManager.spawnRock(tileCounter, firstAvaliableTile);
         }
+
         firstAvaliableTile.SetActive(true);
         firstAvaliableTile = firstAvaliableTile.GetComponent<Terrain>().getNextTile();
         tileCounter -= 10;

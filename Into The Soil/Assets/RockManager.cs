@@ -31,10 +31,23 @@ public class RockManager : MonoBehaviour
 
     public void spawnRock(float YValue, GameObject tile)
     {
+        if(firstAvaliableRock == null)
+        {
+            //We ran out of rocks
+            return;
+        }
         firstAvaliableRock.transform.parent = tile.transform;
         firstAvaliableRock.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), Quaternion.identity);
         firstAvaliableRock.SetActive(true);
         firstAvaliableRock = firstAvaliableRock.GetComponent<Rock>().getNextRock();
+    }
+
+    void createRock()
+    {
+        GameObject go = Instantiate(rockObject, transform.position, Quaternion.identity);
+        rockObjects[maxRocks] = go;
+        go.SetActive(false);
+        firstAvaliableRock = go;
     }
 
     // Update is called once per frame
