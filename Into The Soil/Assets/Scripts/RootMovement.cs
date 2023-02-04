@@ -14,8 +14,7 @@ public class RootMovement : MonoBehaviour
     [SerializeField]
     private float speed = 2.0f;
 
-    [SerializeField]
-    private Vector2Int direction;
+    public Vector2Int direction;
 
     private Dir currentDir;
 

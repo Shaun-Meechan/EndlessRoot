@@ -66,7 +66,7 @@ public class TailGeneration : MonoBehaviour
     void InsertPointAtSecondLastIndex(Dir dir)
     {
         Vector3 direction = new Vector3(0, 0, 0);
-        switch(dir)
+        switch (dir)
         {
             case Dir.Up: direction = new Vector3(0, 0.05f, 0); break;
             case Dir.Down: direction = new Vector3(0, -0.05f, 0); break;
@@ -79,7 +79,8 @@ public class TailGeneration : MonoBehaviour
         tails.spline.SetHeight(pivot, Random.Range(0.4f, 0.6f));
         tails.spline.SetTangentMode(pivot, ShapeTangentMode.Continuous);
         pivot++;
-        //InsertPointInEdgeCollider(currentLoc);
+        tails.spline.SetLeftTangent(pivot, Vector3.zero);
+        InsertPointInEdgeCollider(currentLoc);
     }
     void InsertPointInEdgeCollider(Vector3 loc)
     {
