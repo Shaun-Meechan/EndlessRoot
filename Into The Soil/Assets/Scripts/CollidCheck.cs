@@ -22,6 +22,7 @@ public class CollidCheck : MonoBehaviour
     {
         if (OnColliderEnter != null)
             OnColliderEnter(collision);
-        Debug.LogError("something collide");
+        if (collision.tag.Contains("Tail"))
+            Debug.LogError("you dead");
     }
 }
