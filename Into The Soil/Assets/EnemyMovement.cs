@@ -8,10 +8,16 @@ public class EnemyMovement : MonoBehaviour
     float maximum = 0.4F;
     float t = 0.0f;
     public float speed = 0.25f;
+    public bool canMove = true;
 
     // Update is called once per frame
     void Update()
     {
+        if(!canMove)
+        {
+            return;
+        }
+
         transform.localPosition = new Vector3(Mathf.Lerp(minimum, maximum, t), transform.position.y, 0);
 
         t += speed * Time.deltaTime;

@@ -11,4 +11,12 @@ public class EnemyController : MonoBehaviour
     bool isBehind = false;
     public bool getIsBehind() { return isBehind; }
     public void setIsBehind(bool value) { isBehind = value; }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Enemy collision");
+        //Damage player
+        GetComponent<EnemyMovement>().canMove = false;
+        setIsBehind(true);
+    }
 }
