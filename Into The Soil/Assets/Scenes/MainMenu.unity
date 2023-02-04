@@ -451,6 +451,7 @@ MonoBehaviour:
   gameOverScreen: {fileID: 0}
   isPaused: 0
   isSplashScreen: 0
+  sceneIndexToLoad: 1
 --- !u!1 &437384611
 GameObject:
   m_ObjectHideFlags: 0

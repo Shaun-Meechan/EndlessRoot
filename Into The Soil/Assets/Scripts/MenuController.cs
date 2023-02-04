@@ -18,6 +18,8 @@ public class MenuController : MonoBehaviour
 
     public bool isSplashScreen;
 
+    public int sceneIndexToLoad = 0;
+
 
 
     private void Start()
@@ -58,7 +60,7 @@ public class MenuController : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene("Mechanic Testing");
+        SceneManager.LoadScene(sceneIndexToLoad);
     }
 
     public void Pause()
