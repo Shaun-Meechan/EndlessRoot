@@ -20,11 +20,15 @@ public class RootMovement : MonoBehaviour
 
     public Action OnDirChange;
 
+    private CameraController cameraController;
+
 
     // Start is called before the first frame update
     void Start()
     {
         Initialise();
+
+        cameraController = Camera.main.GetComponent<CameraController>();
 
     }
 
@@ -80,10 +84,10 @@ public class RootMovement : MonoBehaviour
             OnDirChange(currentDir);
         switch(dir)
         {
-            case Dir.Up: direction = new Vector2Int(0, 1) ; currentDir = Dir.Up; transform.eulerAngles = new Vector3(0,0,180); break;
-            case Dir.Down:direction = new Vector2Int(0, -1); currentDir = Dir.Down; transform.eulerAngles = new Vector3(0, 0, 0); break;
-            case Dir.Right:direction = new Vector2Int(1, 0); currentDir = Dir.Right; transform.eulerAngles = new Vector3(0, 0, 90); break;
-            case Dir.Left: direction = new Vector2Int(-1, 0); currentDir = Dir.Left; transform.eulerAngles = new Vector3(0, 0, -90); break;    
+            case Dir.Up: direction = new Vector2Int(0, 1) ; currentDir = Dir.Up; transform.eulerAngles = new Vector3(0,0,180); cameraController.stopMoving(); break;
+            case Dir.Down:direction = new Vector2Int(0, -1); currentDir = Dir.Down; transform.eulerAngles = new Vector3(0, 0, 0); cameraController.startMoving(); break;
+            case Dir.Right:direction = new Vector2Int(1, 0); currentDir = Dir.Right; transform.eulerAngles = new Vector3(0, 0, 90); cameraController.stopMoving(); break;
+            case Dir.Left: direction = new Vector2Int(-1, 0); currentDir = Dir.Left; transform.eulerAngles = new Vector3(0, 0, -90); cameraController.stopMoving(); break;    
             default: break;
         }
     }
