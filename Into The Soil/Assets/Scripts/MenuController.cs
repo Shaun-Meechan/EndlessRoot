@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class MenuController : MonoBehaviour
 {
 
     [SerializeField] public GameObject splashScreen;
-    [SerializeField] public GameObject menuScreen;
+    [SerializeField] public GameObject mainMenuScreen;
+
+    [SerializeField] public GameObject pauseMenuScreen;
+    [SerializeField] public GameObject gameOverScreen;
 
     public bool isPaused;
 
@@ -18,7 +22,11 @@ public class MenuController : MonoBehaviour
 
     private void Start()
     {
-        isSplashScreen = true;
+        if (splashScreen != null)
+        {
+            isSplashScreen = true;
+        }
+        
 
     }
 
@@ -26,7 +34,7 @@ public class MenuController : MonoBehaviour
     {
         SplashScreenTransition();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (pauseMenuScreen != null && Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
             {
@@ -43,29 +51,37 @@ public class MenuController : MonoBehaviour
     {
         if (isSplashScreen == true && Input.anyKey)
         {
-            menuScreen.SetActive(true);
+            mainMenuScreen.SetActive(true);
             splashScreen.SetActive(false);
         }
     }
 
     public void Play()
     {
-        Debug.Log("Play!");
+        SceneManager.LoadScene("Mechanic Testing");
     }
 
     public void Pause()
     {
-        
+        isPaused = true;
+        Time.timeScale = 0f;
+        pauseMenuScreen.SetActive(true);
+
+        Debug.Log("isPaused = " + isPaused);
     }
 
     public void Resume()
     {
-        
+        isPaused = false;
+        Time.timeScale = 1f;
+        pauseMenuScreen.SetActive(false);
+
+        Debug.Log("isPaused = " + isPaused);
     }
 
     public void GoToMainMenu()
     {
-        
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void playAgain()

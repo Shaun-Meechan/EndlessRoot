@@ -446,7 +446,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splashScreen: {fileID: 835926195}
-  menuScreen: {fileID: 2016775114}
+  mainMenuScreen: {fileID: 2016775114}
+  pauseMenuScreen: {fileID: 0}
+  gameOverScreen: {fileID: 0}
   isPaused: 0
   isSplashScreen: 0
 --- !u!1 &437384611
