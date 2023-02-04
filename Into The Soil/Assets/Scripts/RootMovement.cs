@@ -62,6 +62,12 @@ public class RootMovement : MonoBehaviour
         Move();
     }
 
+    public void playerDied()
+    {
+        canMove = false;
+        ChangeDirection(Dir.Down);
+    }
+
     void Initialise()
     {
         direction = new Vector2Int(0, -1);
