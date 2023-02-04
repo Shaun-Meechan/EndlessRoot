@@ -11,6 +11,13 @@ public class TerrainManager : MonoBehaviour
 
     GameObject firstAvaliableTile;
 
+    //Walls come in pairs
+    const int maxWalls = 3;
+    public GameObject wallObject;
+    GameObject[] walls = new GameObject[maxWalls];
+
+    GameObject firstAvaliableWall;
+
     public EnemyManager enemyManager;
     public RockManager rockManager;
 
@@ -37,6 +44,23 @@ public class TerrainManager : MonoBehaviour
         firstAvaliableTile = tileObjects[0];
         tileObjects[maxTiles - 1].GetComponent<Terrain>().setNextTile(null);
 
+        //Setup walls
+        for (int i = 0; i < maxWalls; i++)
+        {
+            GameObject go = Instantiate(wallObject, transform.position, Quaternion.identity);
+            walls[i] = go;
+            go.SetActive(false);
+            //May add terain manager
+        }
+
+        for (int i = 0; i < maxWalls - 1; i++)
+        {
+            walls[i].GetComponent<Wall>().setNextWall(walls[i + 1]);
+        }
+
+        firstAvaliableWall = walls[0];
+        walls[maxWalls - 1].GetComponent<Wall>().setNextWall(null);
+
         spawnTile();
         spawnTile();
     }
@@ -62,6 +86,8 @@ public class TerrainManager : MonoBehaviour
             rockManager.spawnRock(tileCounter, firstAvaliableTile);
         }
 
+        firstAvaliableTile.GetComponent<Terrain>().setWalls(firstAvaliableWall);
+        spawnWall();
         firstAvaliableTile.SetActive(true);
         firstAvaliableTile = firstAvaliableTile.GetComponent<Terrain>().getNextTile();
         tileCounter -= 10;
@@ -70,8 +96,13 @@ public class TerrainManager : MonoBehaviour
         {
             tileCounter = -10;
         }
+    }
 
-
+    void spawnWall()
+    {
+        firstAvaliableWall.transform.SetPositionAndRotation(new Vector3(0, 0 + tileCounter, 0), Quaternion.identity);
+        firstAvaliableWall.SetActive(true);
+        firstAvaliableWall = firstAvaliableWall.GetComponent<Wall>().getNextWall();
     }
 
 
@@ -97,6 +128,17 @@ public class TerrainManager : MonoBehaviour
                 firstAvaliableTile = tileObjects[i];
                 firstAvaliableTile.SetActive(false);
                 firstAvaliableTile.GetComponent<Terrain>().setisBehind(false);
+            }
+        }
+
+        for (int i = 0; i < maxWalls; i++)
+        {
+            if(walls[i].GetComponent<Wall>().getIsBehind())
+            {
+                walls[i].GetComponent<Wall>().setNextWall(firstAvaliableWall);
+                firstAvaliableWall = walls[i];
+                firstAvaliableWall.SetActive(false);
+                firstAvaliableWall.GetComponent<Wall>().setIsBehind(false);
             }
         }
     }

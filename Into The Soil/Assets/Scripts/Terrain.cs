@@ -15,6 +15,9 @@ public class Terrain : MonoBehaviour
     TerrainManager terrainManager;
     public void setTerrainManager(TerrainManager input) { terrainManager = input; }
 
+    public void setWalls(GameObject walls) { sideWalls = walls; }
+    GameObject sideWalls;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Terrain"))
@@ -44,6 +47,8 @@ public class Terrain : MonoBehaviour
         {
             GetComponentInChildren<EnemyController>().setIsBehind(true);
         }
+
+        sideWalls.GetComponent<Wall>().setIsBehind(true);
 
         isBehind = true;
         terrainManager.spawnTile();

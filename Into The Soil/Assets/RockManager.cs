@@ -42,14 +42,6 @@ public class RockManager : MonoBehaviour
         firstAvaliableRock = firstAvaliableRock.GetComponent<Rock>().getNextRock();
     }
 
-    void createRock()
-    {
-        GameObject go = Instantiate(rockObject, transform.position, Quaternion.identity);
-        rockObjects[maxRocks] = go;
-        go.SetActive(false);
-        firstAvaliableRock = go;
-    }
-
     // Update is called once per frame
     void Update()
     {
