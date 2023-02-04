@@ -7,13 +7,16 @@ public class Health : MonoBehaviour
 {
     private float maxHealth = 100f;
     private float currentHealth;
-    private float healthDecreasedPerSecond = 2f;
+    private float healthDecreasedPerSecond = 10f;
 
     [SerializeField] private Image healthBar;
+
+    private MenuController menuController;
 
     private void Start()
     {
         currentHealth = maxHealth;
+        menuController = FindObjectOfType<MenuController>();
     }
 
     public float GetHealth()
@@ -24,20 +27,23 @@ public class Health : MonoBehaviour
     public void UpdateHealth(float change)
     {
         currentHealth += change;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
 
     }
 
-    /*
-    public void SetBarSize(float sizeNormalized)
-    {
-        healthBar.transform.localScale = new Vector3(sizeNormalized, 1f);
-    }
-    */
+    
 
     private void Update()
     {
         currentHealth -= healthDecreasedPerSecond * Time.deltaTime;
-        //SetBarSize(currentHealth/100);
         healthBar.fillAmount = currentHealth / maxHealth;
+
+        if (currentHealth <= 0f)
+        {
+            menuController.GameOver();
+        }
     }
 }

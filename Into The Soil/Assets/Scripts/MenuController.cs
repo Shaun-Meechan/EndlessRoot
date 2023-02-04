@@ -20,7 +20,14 @@ public class MenuController : MonoBehaviour
 
     public int sceneIndexToLoad = 0;
 
-
+    private void Awake()
+    {
+        if (splashScreen == null)
+        {
+            isPaused = false;
+            Time.timeScale = 1f;
+        }
+    }
 
     private void Start()
     {
@@ -60,6 +67,8 @@ public class MenuController : MonoBehaviour
 
     public void Play()
     {
+        isPaused = false;
+        Time.timeScale = 1f;
         SceneManager.LoadScene(sceneIndexToLoad);
     }
 
@@ -86,9 +95,21 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void GameOver()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+        gameOverScreen.SetActive(true);
+
+        
+    }
+
     public void playAgain()
     {
-        
+        isPaused = false;
+        Time.timeScale = 1f;
+        gameOverScreen.SetActive(false);
+        SceneManager.LoadScene("SampleScene");
     }
 
 
