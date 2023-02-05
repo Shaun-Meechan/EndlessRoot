@@ -9,14 +9,17 @@ public class Health : MonoBehaviour
     private float currentHealth;
     private float healthDecreasedPerSecond = 2f;
 
-    [SerializeField] private Image healthBar;
+    [SerializeField] public Image healthBar;
 
     private CameraController cameraController;
+
+    public bool healthCanBeDrained;
 
     private void Start()
     {
         currentHealth = maxHealth;
         cameraController = FindObjectOfType<CameraController>();
+        healthCanBeDrained = true;
     }
 
     public float GetHealth()
@@ -38,7 +41,12 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        currentHealth -= healthDecreasedPerSecond * Time.deltaTime;
+        Debug.Log("healthIsDraining: " + healthCanBeDrained);
+
+        if (healthCanBeDrained)
+        {
+            currentHealth -= healthDecreasedPerSecond * Time.deltaTime;
+        }
         healthBar.fillAmount = currentHealth / maxHealth;
 
         if (currentHealth <= 0f)

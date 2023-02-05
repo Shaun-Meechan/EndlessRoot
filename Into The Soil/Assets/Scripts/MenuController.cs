@@ -41,7 +41,6 @@ public class MenuController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("timeScale: " + Time.timeScale) ;
 
         SplashScreenTransition();
 
