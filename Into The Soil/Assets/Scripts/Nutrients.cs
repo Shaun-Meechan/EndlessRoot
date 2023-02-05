@@ -15,7 +15,6 @@ public class Nutrients : PickupItem
     private Health playerHealth;
     private RootMovement rootMovement;
     private float powerDuration = 5f;
-    public bool activated = false;
 
     private void Awake()
     {
@@ -31,8 +30,9 @@ public class Nutrients : PickupItem
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("NUTRIENTS!");
-        activated = true;
         StartCoroutine(PowerUpCoroutine());
+        GameObject.Find("Game Manager").GetComponent<CustomGameManager>().StartCoroutine(PowerUpCoroutine());
+        setisBehind(true);
     }
 
     IEnumerator PowerUpCoroutine()
@@ -49,6 +49,5 @@ public class Nutrients : PickupItem
         playerHealth.healthCanBeDrained = true;
         playerHealth.healthBar.color = new Color(0.8705883f, 0.9215687f, 0.9686275f, 1f);
         rootMovement.SetFXColor(rootMovement.DefualtColor);
-        setisBehind(true);
     }
 }

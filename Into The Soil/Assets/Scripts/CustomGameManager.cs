@@ -11,9 +11,14 @@ public class CustomGameManager : MonoBehaviour
 
     List<GameObject> rootContrainers = new List<GameObject>();
 
+    private Health playerHealth;
+    private RootMovement rootMovement;
+
     private void Start()
     {
         RedrawRoots();
+        playerHealth = FindObjectOfType<Health>();
+        rootMovement = FindObjectOfType<RootMovement>();
     }
 
     private void Update()
@@ -71,4 +76,21 @@ public class CustomGameManager : MonoBehaviour
             rootContrainers[i].SetActive(true);
         }
     }
+
+    IEnumerator PowerUpCoroutine()
+    {
+        playerHealth.healthCanBeDrained = false;
+        playerHealth.healthBar.color = Color.green;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
+        rootMovement.SetFXColor(Color.green);
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(5);
+
+        //After we have waited 5 seconds
+        playerHealth.healthCanBeDrained = true;
+        playerHealth.healthBar.color = new Color(0.8705883f, 0.9215687f, 0.9686275f, 1f);
+        rootMovement.SetFXColor(rootMovement.DefualtColor);
+    }
+
 }

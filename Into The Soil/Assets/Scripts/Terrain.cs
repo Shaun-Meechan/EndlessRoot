@@ -80,10 +80,7 @@ public class Terrain : MonoBehaviour
         //TODO: Add nutrition stuff
         if(GetComponentInChildren<Nutrients>())
         {
-            if(GetComponentInChildren<Nutrients>().activated == false)
-            {
-                GetComponentInChildren<Nutrients>().setisBehind(true);
-            }
+            GetComponentInChildren<Nutrients>().setisBehind(true);
         }
 
         sideWalls.GetComponent<Wall>().setIsBehind(true);
