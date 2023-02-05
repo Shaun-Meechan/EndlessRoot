@@ -10,6 +10,8 @@ public class CameraController : MonoBehaviour
 
     private MenuController menuController;
 
+    public DifficultyManager difficultyManager;
+
     private void Start()
     {
         menuController = FindObjectOfType<MenuController>();
@@ -41,19 +43,31 @@ public class CameraController : MonoBehaviour
         transform.SetPositionAndRotation(new Vector3(0, transform.position.y - (speed * Time.deltaTime), -10), Quaternion.identity);
     }
 
-    public void stopMoving()
-    {
-        canMove = false;
-    }
+    //public void stopMoving()
+    //{
+    //    canMove = false;
+    //}
 
-    public void startMoving()
-    {
-        canMove = true;
-    }
+    //public void startMoving()
+    //{
+    //    canMove = true;
+    //}
 
     public void reverse()
     {
         shouldReverse = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Camera trigger");
+        difficultyManager.clampToCameraSpeed();
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("Camera trigger");
+        difficultyManager.unclampToCameraSpeed();
     }
 
 

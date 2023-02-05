@@ -28,6 +28,9 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField]
     float denseOfObstacle = 1;
 
+    bool shouldClampToCameraSpped = false;
+    float speedBeforeClamp;
+
     CameraController cameraController;
 
     private void Start()
@@ -42,9 +45,32 @@ public class DifficultyManager : MonoBehaviour
     void Update()
     {
         //currentSpeed += (acceleration * Time.deltaTime);
-        currentSpeed = Mathf.Clamp(currentSpeed + (acceleration * Time.deltaTime), 0, 30);
+        //currentSpeed = Mathf.Clamp(currentSpeed + (acceleration * Time.deltaTime), 0, 30);
+        currentSpeed = Mathf.Clamp(cameraSpeed + (acceleration * Time.deltaTime), 0, 30);
+
+
+        if (shouldClampToCameraSpped)
+        {
+            currentSpeed = cameraController.speed;
+        }
+        else
+        {
+            currentSpeed *= 1.2f;
+        }
+
         playerMovement.SetSpeed(currentSpeed);
-        cameraController.speed = currentSpeed;
+    }
+
+    public void clampToCameraSpeed()
+    {
+        speedBeforeClamp = currentSpeed;
+        shouldClampToCameraSpped = true;
+    }
+
+    public void unclampToCameraSpeed()
+    {
+        shouldClampToCameraSpped = false;
+        currentSpeed = speedBeforeClamp;
     }
 
     void IncreaseDifficulty()
@@ -57,7 +83,15 @@ public class DifficultyManager : MonoBehaviour
         currentDifficulty ++;
         acceleration *= MathF.Pow(currentDifficulty, 0.9f);
         denseOfObstacle += currentDifficulty;
-        cameraSpeed = currentSpeed * 0.8f;
+
+        if(shouldClampToCameraSpped)
+        {
+            cameraSpeed = speedBeforeClamp * 0.8f;
+        }
+        else
+        {
+            cameraSpeed = currentSpeed * 0.8f;
+        }
     }
 
     public int GetDifficulty()
