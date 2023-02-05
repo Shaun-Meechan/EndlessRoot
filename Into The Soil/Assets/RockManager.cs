@@ -36,8 +36,8 @@ public class RockManager : MonoBehaviour
             //We ran out of rocks
             return;
         }
+        firstAvaliableRock.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), rockObject.transform.rotation);
         firstAvaliableRock.transform.parent = tile.transform;
-        firstAvaliableRock.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), Quaternion.identity);
         firstAvaliableRock.SetActive(true);
         firstAvaliableRock = firstAvaliableRock.GetComponent<RedirectionRock>().getNextRock();
     }
