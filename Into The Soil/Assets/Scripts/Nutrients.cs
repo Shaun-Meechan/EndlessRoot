@@ -15,6 +15,8 @@ public class Nutrients : PickupItem
     private Health playerHealth;
     private float powerDuration = 5f;
 
+    public bool activated = false;
+
     private void Awake()
     {
         playerHealth = FindObjectOfType<Health>();
@@ -28,6 +30,7 @@ public class Nutrients : PickupItem
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("NUTRIENTS!");
+        activated = true;
         StartCoroutine(PowerUpCoroutine());
     }
 
