@@ -28,22 +28,28 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField]
     float denseOfObstacle = 1;
 
+    CameraController cameraController;
+
     private void Start()
     {
         Initialise();
         difficultyTimer.StartTimer(45,IncreaseDifficulty, true);
+        cameraController = Camera.main.GetComponent<CameraController>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentSpeed += (acceleration * Time.deltaTime);
+        //currentSpeed += (acceleration * Time.deltaTime);
+        currentSpeed = Mathf.Clamp(currentSpeed + (acceleration * Time.deltaTime), 0, 30);
         playerMovement.SetSpeed(currentSpeed);
+        cameraController.speed = currentSpeed;
     }
 
     void IncreaseDifficulty()
     {
-        if(currentDifficulty >= 5)
+        if(currentDifficulty >= 10)
         {
             difficultyTimer.Dispose();
             return;
