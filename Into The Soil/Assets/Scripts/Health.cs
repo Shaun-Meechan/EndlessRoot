@@ -43,6 +43,7 @@ public class Health : MonoBehaviour
 
         if (currentHealth <= 0f)
         {
+            GameObject.Find("TerrainManager").GetComponent<TerrainManager>().showAlltiles();
             cameraController.reverse();
         }
     }

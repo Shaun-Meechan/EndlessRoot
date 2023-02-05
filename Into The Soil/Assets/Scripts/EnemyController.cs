@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
             GetComponent<EnemyMovement>().canMove = false;
             setIsBehind(true);
             //collision.gameObject.GetComponent<RootMovement>().playerDied();
-            GameObject.Find("TerrainManager").GetComponent<TerrainManager>().showAlltiles();
+            //GameObject.Find("TerrainManager").GetComponent<TerrainManager>().showAlltiles();
             //Camera.main.GetComponent<CameraController>().reverse();
             
             playerHealth.UpdateHealth(healthDecreaseValue);
