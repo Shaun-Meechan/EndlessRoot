@@ -20,6 +20,7 @@ public class TerrainManager : MonoBehaviour
 
     public EnemyManager enemyManager;
     public RockManager rockManager;
+    public PowerUpManager powerUpManager;
 
     int tileCounter = -10;
 
@@ -77,6 +78,8 @@ public class TerrainManager : MonoBehaviour
             //Spawn power up
             //Instantiate(powerUp, new Vector3(Random.Range(-8, 8), 0 + (tileCounter + 10), 0), Quaternion.identity);
             enemyManager.spawnEnemy(tileCounter, firstAvaliableTile);
+            powerUpManager.spawnAccessory(tileCounter, firstAvaliableTile);
+            powerUpManager.spawnWater(tileCounter, firstAvaliableTile);
         }
 
         //Spawn some rock
