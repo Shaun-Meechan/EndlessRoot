@@ -130,7 +130,7 @@ public class MenuController : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         gameOverScreen.SetActive(false);
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(sceneIndexToLoad);
     }
 
 

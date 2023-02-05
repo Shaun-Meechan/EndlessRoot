@@ -9,6 +9,13 @@ public class CustomGameManager : MonoBehaviour
     [SerializeField]
     private GameObject rootContainer;
 
+    List<GameObject> rootContrainers = new List<GameObject>();
+
+    private void Start()
+    {
+        RedrawRoots();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -27,7 +34,14 @@ public class CustomGameManager : MonoBehaviour
         SceneManager.LoadScene("Mechanics Testing 2");
     }
 
-    private void RedrawRoots()
+    public void saveTail()
+    {
+        GameObject tail = GameObject.FindGameObjectWithTag("Tail");
+        RootDataKeeper.StoreShape(tail.GetComponent<SpriteShapeController>().spline);
+        tail.GetComponent<TailGeneration>().SetIsAllowedFollow(false);
+    }
+
+    void RedrawRoots()
     {
         List<Spline> AllRoots = RootDataKeeper.GetAllRoots();
         foreach (Spline root in AllRoots)
@@ -45,6 +59,16 @@ public class CustomGameManager : MonoBehaviour
             lastSpline.SetPosition(last, root.GetPosition(last));
             lastSpline.SetHeight(last, 0.2f);
             lastSpline.SetLeftTangent(last, new Vector3(0, 1, 0));
+            thisRoot.SetActive(false);
+            rootContrainers.Add(thisRoot);
+        }
+    }
+
+    public void showRoots()
+    {
+        for (int i = 0; i < rootContrainers.Count; i++)
+        {
+            rootContrainers[i].SetActive(true);
         }
     }
 }
