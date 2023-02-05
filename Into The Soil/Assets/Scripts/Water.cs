@@ -9,6 +9,9 @@ public class Water : PickupItem
     private Health playerHealth;
     private float healthIncreaseValue = 20f;
 
+    [SerializeField] private GameObject idleAnimation;
+    [SerializeField] private GameObject collectAnimation;
+
     private void Awake()
     {
         playerHealth = FindObjectOfType<Health>();
@@ -22,8 +25,11 @@ public class Water : PickupItem
     public void OnTriggerEnter2D(Collider2D collision)
     {
         playerHealth.UpdateHealth(healthIncreaseValue);
+        idleAnimation.SetActive(false);
+        collectAnimation.SetActive(true);
 
-        Destroy(gameObject);
+        Destroy(gameObject, 1f);
     }
+
 
 }
