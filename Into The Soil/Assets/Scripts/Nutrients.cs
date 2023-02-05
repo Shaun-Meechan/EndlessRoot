@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Nutrients : PickupItem
 {
+    public GameObject getNextPowerUp() { return nextPowerUp; }
+    public void setNextnextPowerUp(GameObject next) { nextPowerUp = next; }
+    GameObject nextPowerUp;
+
+    bool isBehind = false;
+    public bool getIsBehind() { return isBehind; }
+    public void setisBehind(bool value) { isBehind = value; }
+
     private Health playerHealth;
     private float powerDuration = 5f;
 
@@ -35,6 +43,6 @@ public class Nutrients : PickupItem
         //After we have waited 5 seconds
         playerHealth.healthCanBeDrained = true;
         playerHealth.healthBar.color = new Color(0.8705883f, 0.9215687f, 0.9686275f, 1f);
-        Destroy(gameObject);
+        setisBehind(true);
     }
 }
