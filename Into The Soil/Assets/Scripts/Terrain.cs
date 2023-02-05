@@ -82,7 +82,7 @@ public class Terrain : MonoBehaviour
         {
             if(GetComponentInChildren<Nutrients>().activated == false)
             {
-                GetComponent<Nutrients>().setisBehind(true);
+                GetComponentInChildren<Nutrients>().setisBehind(true);
             }
         }
 

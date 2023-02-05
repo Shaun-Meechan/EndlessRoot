@@ -8,7 +8,7 @@ public static class RootDataKeeper
 {
 
     [SerializeField]
-    private static int maxRoots = 10;
+    private static int maxRoots = 5;
 
     private static List<System.Reflection.FieldInfo[]> allFields;
 
