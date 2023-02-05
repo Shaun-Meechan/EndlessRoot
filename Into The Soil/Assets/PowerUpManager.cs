@@ -7,8 +7,10 @@ public class PowerUpManager : MonoBehaviour
 
     const int countOfAccessoryPickUp = 3;
     public GameObject[] AccessoryPickUpPrefabs;
-    GameObject[] AccessoryPickUps = new GameObject[countOfAccessoryPickUp];
-    GameObject firstAvaliableAccessoryPickUp;
+    //GameObject[] AccessoryPickUps = new GameObject[countOfAccessoryPickUp];
+    //GameObject firstAvaliableAccessoryPickUp;
+
+    List<GameObject> accessoryList = new List<GameObject>();
 
     const int countOfWaterPowerUps = 3;
     public GameObject WaterPowerUpPrefab;
@@ -26,17 +28,19 @@ public class PowerUpManager : MonoBehaviour
         for (int i = 0; i < countOfAccessoryPickUp; i++)
         {
             GameObject go = Instantiate(AccessoryPickUpPrefabs[i], transform.position, Quaternion.identity);
-            AccessoryPickUps[i] = go;
+            accessoryList.Add(go);
+            //AccessoryPickUps[i] = go;
             go.SetActive(false);
         }
 
-        for (int i = 0; i < countOfAccessoryPickUp - 1; i++)
-        {
-            AccessoryPickUps[i].GetComponent<Accessory>().setNextnextPowerUp(AccessoryPickUps[i + 1]);
-        }
+        //for (int i = 0; i < countOfAccessoryPickUp - 1; i++)
+        //{
+        //    //AccessoryPickUps[i].GetComponent<Accessory>().setNextnextPowerUp(AccessoryPickUps[i + 1]);
+        //    accessoryList[i].GetComponent<Accessory>().setNextnextPowerUp(accessoryList[i + 1]);
+        //}
 
-        firstAvaliableAccessoryPickUp = AccessoryPickUps[0];
-        AccessoryPickUps[countOfAccessoryPickUp - 1].GetComponent<Accessory>().setNextnextPowerUp(null);
+        //firstAvaliableAccessoryPickUp = accessoryList[0];
+        //accessoryList[countOfAccessoryPickUp - 1].GetComponent<Accessory>().setNextnextPowerUp(null);
 
 
         for (int i = 0; i < countOfWaterPowerUps; i++)
@@ -72,15 +76,27 @@ public class PowerUpManager : MonoBehaviour
 
     public void spawnAccessory(float YValue, GameObject tile)
     {
-        if (firstAvaliableAccessoryPickUp == null)
+        for (int i = 0; i < accessoryList.Count; i++)
         {
-            //We ran out of rocks
-            return;
+            if(accessoryList[i].gameObject.activeInHierarchy == false)
+            {
+                accessoryList[i].transform.parent = tile.transform;
+                accessoryList[i].transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), Quaternion.identity);
+                accessoryList[i].SetActive(true);
+                return;
+            }
         }
-        firstAvaliableAccessoryPickUp.transform.parent = tile.transform;
-        firstAvaliableAccessoryPickUp.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), Quaternion.identity);
-        firstAvaliableAccessoryPickUp.SetActive(true);
-        firstAvaliableAccessoryPickUp = firstAvaliableAccessoryPickUp.GetComponent<Accessory>().getNextAccessory();
+
+
+        //if (firstAvaliableAccessoryPickUp == null)
+        //{
+        //    //We ran out of rocks
+        //    return;
+        //}
+        //firstAvaliableAccessoryPickUp.transform.parent = tile.transform;
+        //firstAvaliableAccessoryPickUp.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), Quaternion.identity);
+        //firstAvaliableAccessoryPickUp.SetActive(true);
+        //firstAvaliableAccessoryPickUp = firstAvaliableAccessoryPickUp.GetComponent<Accessory>().getNextAccessory();
     }    
     
     public void spawnWater(float YValue, GameObject tile)
@@ -106,7 +122,7 @@ public class PowerUpManager : MonoBehaviour
         firstAvaliableNutritionPowerUp.transform.parent = tile.transform;
         firstAvaliableNutritionPowerUp.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), Quaternion.identity);
         firstAvaliableNutritionPowerUp.SetActive(true);
-        firstAvaliableNutritionPowerUp = firstAvaliableAccessoryPickUp.GetComponent<NutritionPowerUp>().getNextPowerUp();
+        firstAvaliableNutritionPowerUp = firstAvaliableNutritionPowerUp.GetComponent<NutritionPowerUp>().getNextPowerUp();
     }
 
 
@@ -115,12 +131,27 @@ public class PowerUpManager : MonoBehaviour
     {
         for (int i = 0; i < countOfAccessoryPickUp; i++)
         {
-            if (AccessoryPickUps[i].GetComponent<Accessory>().getIsBehind())
+            if(accessoryList.Count == 0)
             {
-                AccessoryPickUps[i].GetComponent<Accessory>().setNextnextPowerUp(firstAvaliableAccessoryPickUp);
-                firstAvaliableAccessoryPickUp = AccessoryPickUps[i];
-                firstAvaliableAccessoryPickUp.SetActive(false);
-                firstAvaliableAccessoryPickUp.GetComponent<Accessory>().setisBehind(false);
+                break;
+            }
+
+            if(accessoryList[i].gameObject == null)
+            {
+                accessoryList.RemoveAt(i);
+                break;
+            }
+
+
+            if (accessoryList[i].GetComponent<Accessory>().getIsBehind())
+            {
+                //accessoryList[i].GetComponent<Accessory>().setNextnextPowerUp(firstAvaliableAccessoryPickUp);
+                //firstAvaliableAccessoryPickUp = accessoryList[i];
+                //firstAvaliableAccessoryPickUp.SetActive(false);
+                //firstAvaliableAccessoryPickUp.GetComponent<Accessory>().setisBehind(false);
+
+                accessoryList[i].SetActive(false);
+                accessoryList[i].GetComponent<Accessory>().setisBehind(false);
             }
         }        
         

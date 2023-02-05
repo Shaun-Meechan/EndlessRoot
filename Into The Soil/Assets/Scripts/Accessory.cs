@@ -44,8 +44,8 @@ public class Accessory : PickupItem
     {
         score.scoreValue += 500f;
         dresser.RegisterAccessoryCollected(GetAccessoryType());
-        //Destroy(gameObject);
-        setisBehind(true);
+        Destroy(gameObject);
+        //setisBehind(true);
     }
 
 }
