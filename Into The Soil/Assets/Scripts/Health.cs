@@ -51,12 +51,17 @@ public class Health : MonoBehaviour
 
         if (currentHealth <= 0f)
         {
-            GameObject.Find("Game Manager").GetComponent<CustomGameManager>().showRoots();
-            GameObject.Find("Root Cap").GetComponent<RootMovement>().playerDied();
-            GameObject.Find("TerrainManager").GetComponent<TerrainManager>().showAlltiles();
-            GameObject.Find("Game Manager").GetComponent<CustomGameManager>().saveTail();
-            cameraController.reverse();
-            gameObject.SetActive(false);
+            killPlayer();
         }
+    }
+
+   public void killPlayer()
+    {
+        GameObject.Find("Game Manager").GetComponent<CustomGameManager>().showRoots();
+        GameObject.Find("Root Cap").GetComponent<RootMovement>().playerDied();
+        GameObject.Find("TerrainManager").GetComponent<TerrainManager>().showAlltiles();
+        GameObject.Find("Game Manager").GetComponent<CustomGameManager>().saveTail();
+        cameraController.reverse();
+        gameObject.SetActive(false);
     }
 }

@@ -15,7 +15,7 @@ public class Nutrients : PickupItem
     private Health playerHealth;
     private RootMovement rootMovement;
     private float powerDuration = 5f;
-
+    public bool activated = false;
 
     private void Awake()
     {
@@ -31,6 +31,7 @@ public class Nutrients : PickupItem
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("NUTRIENTS!");
+        activated = true;
         StartCoroutine(PowerUpCoroutine());
     }
 

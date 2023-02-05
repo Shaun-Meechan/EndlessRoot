@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    const int maxEnemies = 3;
+    const int maxEnemies = 5;
     public GameObject enemyObject;
     GameObject[] enemyObjects = new GameObject[maxEnemies];
     GameObject firstAvaliableEnemy;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RockManager : MonoBehaviour
 {
-    const int maxRocks = 8;
+    const int maxRocks = 16;
     public GameObject rockObject;
     GameObject[] rockObjects = new GameObject[maxRocks];
 

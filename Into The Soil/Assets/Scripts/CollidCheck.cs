@@ -11,7 +11,11 @@ public class CollidCheck : MonoBehaviour
     {
         if (OnColliderEnter != null)
             OnColliderEnter(collision);
+
         if (collision.tag.Contains("Tail"))
-            Debug.LogError("you dead");
+        {
+            GameObject.Find("Health Bar").GetComponent<Health>().killPlayer();
+        }
+
     }
 }

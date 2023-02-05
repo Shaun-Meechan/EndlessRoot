@@ -73,18 +73,18 @@ public class TerrainManager : MonoBehaviour
         firstAvaliableTile.transform.SetPositionAndRotation(new Vector3(0, 0 + tileCounter, 0), Quaternion.identity);
         int randomChance = Random.Range(0, 11);
 
+        enemyManager.spawnEnemy(tileCounter, firstAvaliableTile);
         if(randomChance >= 0)
         {
             //Spawn power up
             //Instantiate(powerUp, new Vector3(Random.Range(-8, 8), 0 + (tileCounter + 10), 0), Quaternion.identity);
-            enemyManager.spawnEnemy(tileCounter, firstAvaliableTile);
             powerUpManager.spawnAccessory(tileCounter, firstAvaliableTile);
             powerUpManager.spawnWater(tileCounter, firstAvaliableTile);
             powerUpManager.spawnNutrition(tileCounter, firstAvaliableTile);
         }
 
         //Spawn some rock
-        int rocksToSpawn = Random.Range(0, 5);
+        int rocksToSpawn = Random.Range(1, 5);
 
         for (int i = 0; i < rocksToSpawn; i++)
         {
