@@ -16,6 +16,8 @@ public class RootMovement : MonoBehaviour
 
     public Vector2Int direction;
 
+    public CustomTimer stunTimer;
+
     private Dir currentDir;
 
     public Action OnDirChange;
@@ -70,7 +72,7 @@ public class RootMovement : MonoBehaviour
         transform.position = new Vector2(newX, newY);
     }
 
-    void ChangeDirection(Dir dir)
+    public void ChangeDirection(Dir dir)
     {
         if (dir == currentDir)
             return;

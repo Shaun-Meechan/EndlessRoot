@@ -22,6 +22,6 @@ public class CollidCheck : MonoBehaviour
     {
         if (OnColliderEnter != null)
             OnColliderEnter(collision);
-        Debug.LogError("something collide");
+        //Debug.LogError("something collide");
     }
 }
