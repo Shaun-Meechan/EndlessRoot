@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
 {
     private float maxHealth = 100f;
     private float currentHealth;
-    private float healthDecreasedPerSecond = 10f;
+    private float healthDecreasedPerSecond = 2f;
 
     [SerializeField] private Image healthBar;
 

@@ -7,7 +7,7 @@ public abstract class PickupItem : MonoBehaviour
     public enum type
     {
         water,
-        nutrition,
+        accessory,
     }
 
     public type itemType;

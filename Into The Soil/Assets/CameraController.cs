@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
         if(shouldReverse)
         {
             transform.SetPositionAndRotation(new Vector3(0, transform.position.y + (speed * Time.deltaTime), -10), Quaternion.identity);
-            if(transform.position.y >= 0)
+            if(transform.position.y >= 10.5f)
             {
                 canMove = false;
             }

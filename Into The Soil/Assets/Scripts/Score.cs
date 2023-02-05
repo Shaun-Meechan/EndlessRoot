@@ -14,7 +14,7 @@ public class Score : MonoBehaviour
     void Start()
     {
         scoreValue = 0f;
-        pointIncreasedPerSecond = 1f;
+        pointIncreasedPerSecond = 5f;
     }
 
     // Update is called once per frame
