@@ -229,11 +229,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8973123553154011695, guid: 0711673eac75dcf44aee61864da229fa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.09
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8973123553154011695, guid: 0711673eac75dcf44aee61864da229fa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.14
+      value: 2.88
       objectReference: {fileID: 0}
     - target: {fileID: 8973123553154011695, guid: 0711673eac75dcf44aee61864da229fa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -354,22 +354,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tail
       objectReference: {fileID: 0}
-    - target: {fileID: 8251725615273651155, guid: 1121895e76e61c14e971908574e6afba, type: 3}
-      propertyPath: m_TagString
-      value: Tail
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251725615273651164, guid: 1121895e76e61c14e971908574e6afba, type: 3}
-      propertyPath: m_Creator
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251725615273651164, guid: 1121895e76e61c14e971908574e6afba, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251725615273651164, guid: 1121895e76e61c14e971908574e6afba, type: 3}
-      propertyPath: m_SpriteShape
-      value: 
-      objectReference: {fileID: 11400000, guid: f24cddf7c09a6442abbce710a6fd7397, type: 2}
     - target: {fileID: 8251725615273651166, guid: 1121895e76e61c14e971908574e6afba, type: 3}
       propertyPath: m_RootOrder
       value: 1
