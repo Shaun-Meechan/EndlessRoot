@@ -31,7 +31,8 @@ public class Water : PickupItem
     {
         playerHealth.UpdateHealth(healthIncreaseValue);
 
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        setisBehind(true);
     }
 
 }

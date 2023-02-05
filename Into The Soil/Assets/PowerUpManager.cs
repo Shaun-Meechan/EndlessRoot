@@ -93,7 +93,7 @@ public class PowerUpManager : MonoBehaviour
         firstAvaliableWaterPowerUp.transform.parent = tile.transform;
         firstAvaliableWaterPowerUp.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), Quaternion.identity);
         firstAvaliableWaterPowerUp.SetActive(true);
-        firstAvaliableWaterPowerUp = firstAvaliableAccessoryPickUp.GetComponent<Water>().getNexWaterPowerUp();
+        firstAvaliableWaterPowerUp = firstAvaliableWaterPowerUp.GetComponent<Water>().getNexWaterPowerUp();
     }    
     
     public void spawnNutrition(float YValue, GameObject tile)
@@ -128,7 +128,7 @@ public class PowerUpManager : MonoBehaviour
         {
             if (waterPowerUps[i].GetComponent<Water>().getIsBehind())
             {
-                AccessoryPickUps[i].GetComponent<Water>().setNextnextPowerUp(firstAvaliableWaterPowerUp);
+                waterPowerUps[i].GetComponent<Water>().setNextnextPowerUp(firstAvaliableWaterPowerUp);
                 firstAvaliableWaterPowerUp = waterPowerUps[i];
                 firstAvaliableWaterPowerUp.SetActive(false);
                 firstAvaliableWaterPowerUp.GetComponent<Water>().setisBehind(false);
