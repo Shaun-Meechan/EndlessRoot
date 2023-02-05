@@ -8,6 +8,7 @@ public abstract class PickupItem : MonoBehaviour
     {
         water,
         accessory,
+        nutrients,
     }
 
     public type itemType;
