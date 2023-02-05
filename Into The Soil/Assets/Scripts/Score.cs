@@ -8,17 +8,20 @@ public class Score : MonoBehaviour
 {
     [SerializeField] public TextMeshProUGUI scoreText;
     public float scoreValue;
-    public float pointIncreasedPerSecond;
+    public float pointIncreasedPerMeter;
 
     private CameraController cameraController;
+
+    private RootMovement rootMovement;
 
     // Start is called before the first frame update
     void Start()
     {
         scoreValue = 0f;
-        pointIncreasedPerSecond = 5f;
+        pointIncreasedPerMeter = 5f;
 
         cameraController = FindObjectOfType<CameraController>();
+        rootMovement = FindObjectOfType<RootMovement>();
     }
 
     // Update is called once per frame
@@ -27,7 +30,11 @@ public class Score : MonoBehaviour
         if (cameraController.shouldReverse == false)
         {
             scoreText.text = "Score: " + (int)scoreValue;
-            scoreValue += pointIncreasedPerSecond * Time.deltaTime;
+            if (rootMovement.currentDir == Dir.Down)
+            {
+                scoreValue += pointIncreasedPerMeter * Time.deltaTime;
+            }
+            
         }
         
     }

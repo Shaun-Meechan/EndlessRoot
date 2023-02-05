@@ -26,7 +26,7 @@ public class RootMovement : MonoBehaviour
 
 
 
-    private Dir currentDir;
+    public Dir currentDir;
 
     public Action OnDirChange;
 

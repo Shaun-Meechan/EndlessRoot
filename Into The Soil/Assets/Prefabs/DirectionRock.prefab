@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FX: {fileID: 4928342088390142688, guid: 2f1142c8aa595be46809e78683b337d9, type: 3}
+  DestroyFX: {fileID: 4928342088390142688, guid: a4a2a07b33e90254a91b6c27bfbdaf5b, type: 3}
 --- !u!1 &5921097200774351882
 GameObject:
   m_ObjectHideFlags: 0

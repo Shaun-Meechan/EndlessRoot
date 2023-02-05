@@ -13,13 +13,14 @@ public class Nutrients : PickupItem
     public void setisBehind(bool value) { isBehind = value; }
 
     private Health playerHealth;
+    private RootMovement rootMovement;
     private float powerDuration = 5f;
-
     public bool activated = false;
 
     private void Awake()
     {
         playerHealth = FindObjectOfType<Health>();
+        rootMovement = FindObjectOfType<RootMovement>();
     }
 
     public override type GetItemType()
@@ -39,6 +40,7 @@ public class Nutrients : PickupItem
         playerHealth.healthCanBeDrained = false;
         playerHealth.healthBar.color = Color.green;
         gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
+        rootMovement.SetFXColor(Color.green);
 
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(powerDuration);
@@ -46,6 +48,7 @@ public class Nutrients : PickupItem
         //After we have waited 5 seconds
         playerHealth.healthCanBeDrained = true;
         playerHealth.healthBar.color = new Color(0.8705883f, 0.9215687f, 0.9686275f, 1f);
+        rootMovement.SetFXColor(rootMovement.DefualtColor);
         setisBehind(true);
     }
 }

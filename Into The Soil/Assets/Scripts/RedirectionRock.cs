@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class RedirectionRock : MonoBehaviour
 {
+    private Health playerHealth;
+
     public GameObject getNextRock() { return nextRock; }
     public void setNextRock(GameObject next) { nextRock = next; }
     GameObject nextRock;
@@ -15,31 +17,48 @@ public class RedirectionRock : MonoBehaviour
 
     [SerializeField]
     private GameObject FX;
+
+    [SerializeField]
+    private GameObject DestroyFX;
+
+    private void Start()
+    {
+        playerHealth = FindObjectOfType<Health>();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ContactPoint2D contact = collision.GetContact(0);
         Vector2 newDir = new Vector2();
         if (collision.gameObject.tag.Contains("Player"))
         {
-            collision.gameObject.GetComponent<RootMovement>().Stun();
-            CreateFX(ChooseCloserDir(contact.normal));
-            RootMovement movement = collision.gameObject.GetComponent<RootMovement>();
-            newDir = Vector2.Reflect(movement.direction, ChooseCloserDir(contact.normal).normalized);
-            Dir nextDir = Dir.Down;
-            switch (newDir.normalized)
+            if (playerHealth.healthCanBeDrained)
             {
-                case var value when value == Vector2.down: nextDir = Dir.Down; break;
-                case var value when value == Vector2.up: nextDir = Dir.Up; break;
-                case var value when value == Vector2.right: nextDir = Dir.Right; break;
-                case var value when value == Vector2.left: nextDir = Dir.Left; break;
-                default: Debug.LogError("direction undefined."); break;
+                collision.gameObject.GetComponent<RootMovement>().Stun();
+                CreateFX(ChooseCloserDir(contact.normal));
+                RootMovement movement = collision.gameObject.GetComponent<RootMovement>();
+                newDir = Vector2.Reflect(movement.direction, ChooseCloserDir(contact.normal).normalized);
+                Dir nextDir = Dir.Down;
+                switch (newDir.normalized)
+                {
+                    case var value when value == Vector2.down: nextDir = Dir.Down; break;
+                    case var value when value == Vector2.up: nextDir = Dir.Up; break;
+                    case var value when value == Vector2.right: nextDir = Dir.Right; break;
+                    case var value when value == Vector2.left: nextDir = Dir.Left; break;
+                    default: Debug.LogError("direction undefined."); break;
+                }
+                movement.ChangeDirection(nextDir);
             }
-            movement.ChangeDirection(nextDir);
+            else
+            {
+                GameObject.Instantiate(DestroyFX, transform.position, Quaternion.FromToRotation(Vector3.zero, Vector3.zero));
+
+                //Destroy(gameObject);
+                setIsBehind(true);
+            }
+            
         }
-        else if (collision.gameObject.tag.Contains("Enemy"))
-        {
-            newDir = new Vector2();//Vector2.Reflect(collision.gameObject.GetComponent<EnemyMovement>().direction, contact.normal);
-        }
+        
         else
             Debug.LogError("collision undefined!");
     }
