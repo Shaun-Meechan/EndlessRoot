@@ -11,12 +11,12 @@ public class Health : MonoBehaviour
 
     [SerializeField] private Image healthBar;
 
-    private MenuController menuController;
+    private CameraController cameraController;
 
     private void Start()
     {
         currentHealth = maxHealth;
-        menuController = FindObjectOfType<MenuController>();
+        cameraController = FindObjectOfType<CameraController>();
     }
 
     public float GetHealth()
@@ -43,7 +43,7 @@ public class Health : MonoBehaviour
 
         if (currentHealth <= 0f)
         {
-            menuController.GameOver();
+            cameraController.reverse();
         }
     }
 }

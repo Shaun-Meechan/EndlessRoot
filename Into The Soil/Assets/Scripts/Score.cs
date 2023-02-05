@@ -10,17 +10,25 @@ public class Score : MonoBehaviour
     public float scoreValue;
     public float pointIncreasedPerSecond;
 
+    private CameraController cameraController;
+
     // Start is called before the first frame update
     void Start()
     {
         scoreValue = 0f;
         pointIncreasedPerSecond = 5f;
+
+        cameraController = FindObjectOfType<CameraController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = "Score: " + (int)scoreValue;
-        scoreValue += pointIncreasedPerSecond * Time.deltaTime;
+        if (cameraController.shouldReverse == false)
+        {
+            scoreText.text = "Score: " + (int)scoreValue;
+            scoreValue += pointIncreasedPerSecond * Time.deltaTime;
+        }
+        
     }
 }
