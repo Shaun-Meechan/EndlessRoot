@@ -32,7 +32,11 @@ public class EnemyController : MonoBehaviour
             //GameObject.Find("TerrainManager").GetComponent<TerrainManager>().showAlltiles();
             //Camera.main.GetComponent<CameraController>().reverse();
             
-            playerHealth.UpdateHealth(healthDecreaseValue);
+            if (playerHealth.healthCanBeDrained)
+            {
+                playerHealth.UpdateHealth(healthDecreaseValue);
+            }
+            
         }
         //Damage player
         

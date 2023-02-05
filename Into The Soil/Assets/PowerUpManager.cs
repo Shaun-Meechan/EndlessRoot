@@ -58,20 +58,20 @@ public class PowerUpManager : MonoBehaviour
         firstAvaliableWaterPowerUp = waterPowerUps[0];
         waterPowerUps[countOfWaterPowerUps - 1].GetComponent<Water>().setNextnextPowerUp(null);
 
-        //for (int i = 0; i < countOfNutritionPowerUps; i++)
-        //{
-        //    GameObject go = Instantiate(nutritionPowerUpPrefab, transform.position, Quaternion.identity);
-        //    nutritionPowerUps[i] = go;
-        //    go.SetActive(false);
-        //}
+        for (int i = 0; i < countOfNutritionPowerUps; i++)
+        {
+            GameObject go = Instantiate(nutritionPowerUpPrefab, transform.position, Quaternion.identity);
+            nutritionPowerUps[i] = go;
+            go.SetActive(false);
+        }
 
-        //for (int i = 0; i < countOfNutritionPowerUps - 1; i++)
-        //{
-        //    nutritionPowerUps[i].GetComponent<NutritionPowerUp>().setNextnextPowerUp(nutritionPowerUps[i + 1]);
-        //}
+        for (int i = 0; i < countOfNutritionPowerUps - 1; i++)
+        {
+            nutritionPowerUps[i].GetComponent<Nutrients>().setNextnextPowerUp(nutritionPowerUps[i + 1]);
+        }
 
-        //firstAvaliableNutritionPowerUp = nutritionPowerUps[0];
-        //nutritionPowerUps[countOfNutritionPowerUps - 1].GetComponent<NutritionPowerUp>().setNextnextPowerUp(null);
+        firstAvaliableNutritionPowerUp = nutritionPowerUps[0];
+        nutritionPowerUps[countOfNutritionPowerUps - 1].GetComponent<Nutrients>().setNextnextPowerUp(null);
     }
 
     public void spawnAccessory(float YValue, GameObject tile)
@@ -122,20 +122,15 @@ public class PowerUpManager : MonoBehaviour
         firstAvaliableNutritionPowerUp.transform.parent = tile.transform;
         firstAvaliableNutritionPowerUp.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), Quaternion.identity);
         firstAvaliableNutritionPowerUp.SetActive(true);
-        firstAvaliableNutritionPowerUp = firstAvaliableNutritionPowerUp.GetComponent<NutritionPowerUp>().getNextPowerUp();
+        firstAvaliableNutritionPowerUp = firstAvaliableNutritionPowerUp.GetComponent<Nutrients>().getNextPowerUp();
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < countOfAccessoryPickUp; i++)
+        for (int i = 0; i < accessoryList.Count; i++)
         {
-            if(accessoryList.Count == 0)
-            {
-                break;
-            }
-
             if(accessoryList[i].gameObject == null)
             {
                 accessoryList.RemoveAt(i);
@@ -165,17 +160,17 @@ public class PowerUpManager : MonoBehaviour
                 firstAvaliableWaterPowerUp.GetComponent<Water>().setisBehind(false);
             }
         }
-        
-        //for (int i = 0; i < countOfNutritionPowerUps; i++)
-        //{
-        //    if (nutritionPowerUps[i].GetComponent<NutritionPowerUp>().getIsBehind())
-        //    {
-        //        nutritionPowerUps[i].GetComponent<NutritionPowerUp>().setNextnextPowerUp(firstAvaliableNutritionPowerUp);
-        //        firstAvaliableNutritionPowerUp = nutritionPowerUps[i];
-        //        firstAvaliableNutritionPowerUp.SetActive(false);
-        //        firstAvaliableNutritionPowerUp.GetComponent<NutritionPowerUp>().setisBehind(false);
-        //    }
-        //}
+
+        for (int i = 0; i < countOfNutritionPowerUps; i++)
+        {
+            if (nutritionPowerUps[i].GetComponent<Nutrients>().getIsBehind())
+            {
+                nutritionPowerUps[i].GetComponent<Nutrients>().setNextnextPowerUp(firstAvaliableNutritionPowerUp);
+                firstAvaliableNutritionPowerUp = nutritionPowerUps[i];
+                firstAvaliableNutritionPowerUp.SetActive(false);
+                firstAvaliableNutritionPowerUp.GetComponent<Nutrients>().setisBehind(false);
+            }
+        }
 
     }
 }

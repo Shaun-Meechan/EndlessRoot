@@ -80,6 +80,7 @@ public class TerrainManager : MonoBehaviour
             enemyManager.spawnEnemy(tileCounter, firstAvaliableTile);
             powerUpManager.spawnAccessory(tileCounter, firstAvaliableTile);
             powerUpManager.spawnWater(tileCounter, firstAvaliableTile);
+            powerUpManager.spawnNutrition(tileCounter, firstAvaliableTile);
         }
 
         //Spawn some rock
