@@ -41,7 +41,6 @@ public class RootMovement : MonoBehaviour
         Initialise();
 
         cameraController = Camera.main.GetComponent<CameraController>();
-        SetFXColor(Color.green);
     }
 
     // Update is called once per frame
