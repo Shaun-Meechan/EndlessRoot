@@ -9,6 +9,10 @@ public enum Dir
 
 public class RootMovement : MonoBehaviour
 {
+    private Color defaultColor;
+
+    public Color DefualtColor { get { return defaultColor; } }
+
     public delegate void Action(Dir lastDir);
     //config
     [SerializeField]
@@ -17,6 +21,10 @@ public class RootMovement : MonoBehaviour
     public Vector2Int direction;
 
     public CustomTimer stunTimer;
+
+    private bool isStunned = false;
+
+
 
     private Dir currentDir;
 
@@ -33,7 +41,7 @@ public class RootMovement : MonoBehaviour
         Initialise();
 
         cameraController = Camera.main.GetComponent<CameraController>();
-
+        SetFXColor(Color.green);
     }
 
     // Update is called once per frame
@@ -44,23 +52,25 @@ public class RootMovement : MonoBehaviour
             return;
         }
 
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if (!isStunned)
         {
-            ChangeDirection(Dir.Up);
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                ChangeDirection(Dir.Up);
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                ChangeDirection(Dir.Down);
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                ChangeDirection(Dir.Right);
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                ChangeDirection(Dir.Left);
+            }
         }
-        else if(Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            ChangeDirection(Dir.Down);
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            ChangeDirection(Dir.Right);
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            ChangeDirection(Dir.Left);
-        }
-
         Move();
     }
 
@@ -74,6 +84,8 @@ public class RootMovement : MonoBehaviour
     {
         direction = new Vector2Int(0, -1);
         currentDir = Dir.Down;
+        stunTimer = gameObject.AddComponent<CustomTimer>();
+        defaultColor = transform.Find("Digging FX").gameObject.GetComponent<SpriteRenderer>().color;
     }
 
     void Move()
@@ -122,5 +134,21 @@ public class RootMovement : MonoBehaviour
             case Dir.Left: return Dir.Right;
             default: return Dir.err;
         }
+    }
+
+    void RecoverFromStun()
+    {
+        isStunned = false;
+    }
+
+    public void Stun()
+    {
+        isStunned = true;
+        stunTimer.StartTimer(1.0f, RecoverFromStun);
+    }
+
+    public void SetFXColor(Color color)
+    {
+        gameObject.transform.Find("Digging FX").gameObject.GetComponent<SpriteRenderer>().color = color;
     }
 }

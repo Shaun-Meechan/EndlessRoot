@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class RedirectionRock : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject FX;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ContactPoint2D contact = collision.GetContact(0);
         Vector2 newDir = new Vector2();
         if (collision.gameObject.tag.Contains("Player"))
         {
+            collision.gameObject.GetComponent<RootMovement>().Stun();
+            CreateFX(ChooseCloserDir(contact.normal));
             RootMovement movement = collision.gameObject.GetComponent<RootMovement>();
             newDir = Vector2.Reflect(movement.direction, ChooseCloserDir(contact.normal).normalized);
             Dir nextDir = Dir.Down;
@@ -53,5 +57,11 @@ public class RedirectionRock : MonoBehaviour
         }
         //Debug.LogError(fourNormal[minFlag]);
         return fourNormal[minFlag];
+    }
+    void CreateFX(Vector2 normal)
+    {
+        Vector3 upDir = new Vector3(0, 1, 0);
+        Vector3 nor = new Vector3(normal.x, normal.y, 0);
+        GameObject.Instantiate(FX, transform.position, Quaternion.FromToRotation(upDir,nor));
     }
 }
