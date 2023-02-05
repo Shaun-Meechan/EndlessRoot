@@ -25,24 +25,23 @@ public class MenuController : MonoBehaviour
 
     private void Awake()
     {
+        isPaused = false;
+        Time.timeScale = 1f;
+
         cam = FindObjectOfType<Camera>();
 
-        if (splashScreen == null)
-        {
-            isPaused = false;
-            Time.timeScale = 1f;
-        }
-        else
+        if (splashScreen != null)
         {
             isSplashScreen = true;
         }
+        
 
     }
 
 
     private void Update()
     {
-        Debug.Log("camIsMoving: " + camIsMoving);
+        Debug.Log("timeScale: " + Time.timeScale) ;
 
         SplashScreenTransition();
 
