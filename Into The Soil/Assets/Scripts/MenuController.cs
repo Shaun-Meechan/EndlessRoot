@@ -16,14 +16,20 @@ public class MenuController : MonoBehaviour
 
     public bool isPaused;
 
-    public bool isSplashScreen;
+    private bool isSplashScreen;
+    private bool camIsMoving;
 
     public int sceneIndexToLoad = 0;
 
+    public Camera cam;
 
-
-    private void Start()
+    private void Awake()
     {
+        isPaused = false;
+        Time.timeScale = 1f;
+
+        cam = FindObjectOfType<Camera>();
+
         if (splashScreen != null)
         {
             isSplashScreen = true;
@@ -32,9 +38,16 @@ public class MenuController : MonoBehaviour
 
     }
 
+
     private void Update()
     {
+
         SplashScreenTransition();
+
+        if (camIsMoving == true)
+        {
+            cam.transform.SetPositionAndRotation(new Vector3(0, cam.transform.position.y - (5f * Time.deltaTime), -10), Quaternion.identity);
+        }
 
         if (pauseMenuScreen != null && Input.GetKeyDown(KeyCode.Escape))
         {
@@ -51,15 +64,31 @@ public class MenuController : MonoBehaviour
 
     public void SplashScreenTransition()
     {
+
         if (isSplashScreen == true && Input.anyKey)
         {
-            mainMenuScreen.SetActive(true);
+           
+            
+
+            camIsMoving = true;
             splashScreen.SetActive(false);
+            isSplashScreen = false;
+        }
+        
+        if (cam.transform.position.y <= -9.14f)
+        {
+            camIsMoving = false;
+
+            mainMenuScreen.SetActive(true);
+            
+            
         }
     }
 
     public void Play()
     {
+        isPaused = false;
+        Time.timeScale = 1f;
         SceneManager.LoadScene(sceneIndexToLoad);
     }
 
@@ -84,11 +113,24 @@ public class MenuController : MonoBehaviour
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        
+    }
+
+    public void GameOver()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+        gameOverScreen.SetActive(true);
+
+        
     }
 
     public void playAgain()
     {
-        
+        isPaused = false;
+        Time.timeScale = 1f;
+        gameOverScreen.SetActive(false);
+        SceneManager.LoadScene("SampleScene");
     }
 
 

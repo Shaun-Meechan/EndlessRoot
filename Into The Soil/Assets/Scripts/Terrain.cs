@@ -67,6 +67,19 @@ public class Terrain : MonoBehaviour
             GetComponentInChildren<EnemyController>().setIsBehind(true);
         }
 
+        if(GetComponentInChildren<Water>())
+        {
+            GetComponentInChildren<Water>().setisBehind(true);
+        }
+
+        if(GetComponentInChildren<Accessory>())
+        {
+            GetComponentInChildren<Accessory>().setisBehind(true);
+        }
+
+        //TODO: Add nutrition stuff
+
+
         sideWalls.GetComponent<Wall>().setIsBehind(true);
 
         isBehind = true;

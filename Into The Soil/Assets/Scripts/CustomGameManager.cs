@@ -24,7 +24,7 @@ public class CustomGameManager : MonoBehaviour
         RootDataKeeper.StoreShape(tail.GetComponent<SpriteShapeController>().spline);
         Debug.LogError(RootDataKeeper.GetNumOfShape());
         tail.GetComponent<TailGeneration>().SetIsAllowedFollow(false);
-        SceneManager.LoadScene("TestLevel");
+        SceneManager.LoadScene("Mechanics Testing 2");
     }
 
     private void RedrawRoots()
