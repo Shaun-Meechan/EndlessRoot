@@ -52,9 +52,9 @@ public class Terrain : MonoBehaviour
         Debug.Log("Spawned new tile");
         for (int i = 0; i < 4; i++)
         {
-            if (GetComponentInChildren<Rock>())
+            if (GetComponentInChildren<RedirectionRock>())
             {
-                GetComponentInChildren<Rock>().setIsBehind(true);
+                GetComponentInChildren<RedirectionRock>().setIsBehind(true);
             }
             else
             {

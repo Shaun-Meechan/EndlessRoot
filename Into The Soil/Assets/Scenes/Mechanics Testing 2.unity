@@ -940,7 +940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf49b33f520c0f489c3df37af963c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rockObject: {fileID: 353099820906962962, guid: ae891fa57a70dcb4b83b8c2a01f9099e, type: 3}
+  rockObject: {fileID: 25658310992982642, guid: 4ef12a5d8632ff84cbb92034edf01d79, type: 3}
 --- !u!4 &538185150
 Transform:
   m_ObjectHideFlags: 0
