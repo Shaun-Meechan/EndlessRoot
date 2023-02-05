@@ -41,8 +41,10 @@ public class MenuController : MonoBehaviour
 
     private void Update()
     {
-
-        SplashScreenTransition();
+        if(SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            SplashScreenTransition();
+        }
 
         if (camIsMoving == true)
         {
