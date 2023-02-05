@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class Water : PickupItem
 {
+
+    [SerializeField]
+    private GameObject idleAnimation;
+
+    [SerializeField]
+    private GameObject collectAnimation;
+
     public GameObject getNexWaterPowerUp() { return nextWaterPowerUp; }
     public void setNextnextPowerUp(GameObject next) { nextWaterPowerUp = next; }
     GameObject nextWaterPowerUp;
@@ -29,8 +36,20 @@ public class Water : PickupItem
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        playerHealth.UpdateHealth(healthIncreaseValue);
+        StartCoroutine(WaterCollectCoroutine());
+    }
 
+    IEnumerator WaterCollectCoroutine()
+    {
+        playerHealth.UpdateHealth(healthIncreaseValue);
+        idleAnimation.SetActive(false);
+        collectAnimation.SetActive(true);
+        
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(1f);
+
+        //After we have waited 5 seconds
         //Destroy(gameObject);
         setisBehind(true);
     }
