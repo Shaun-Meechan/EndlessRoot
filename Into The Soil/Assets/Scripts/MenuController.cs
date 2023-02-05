@@ -16,32 +16,40 @@ public class MenuController : MonoBehaviour
 
     public bool isPaused;
 
-    public bool isSplashScreen;
+    private bool isSplashScreen;
+    private bool camIsMoving;
 
     public int sceneIndexToLoad = 0;
 
+    public Camera cam;
+
     private void Awake()
     {
+        cam = FindObjectOfType<Camera>();
+
         if (splashScreen == null)
         {
             isPaused = false;
             Time.timeScale = 1f;
         }
-    }
-
-    private void Start()
-    {
-        if (splashScreen != null)
+        else
         {
             isSplashScreen = true;
         }
-        
 
     }
 
+
     private void Update()
     {
+        Debug.Log("camIsMoving: " + camIsMoving);
+
         SplashScreenTransition();
+
+        if (camIsMoving == true)
+        {
+            cam.transform.SetPositionAndRotation(new Vector3(0, cam.transform.position.y - (5f * Time.deltaTime), -10), Quaternion.identity);
+        }
 
         if (pauseMenuScreen != null && Input.GetKeyDown(KeyCode.Escape))
         {
@@ -58,10 +66,24 @@ public class MenuController : MonoBehaviour
 
     public void SplashScreenTransition()
     {
+
         if (isSplashScreen == true && Input.anyKey)
         {
-            mainMenuScreen.SetActive(true);
+           
+            
+
+            camIsMoving = true;
             splashScreen.SetActive(false);
+            isSplashScreen = false;
+        }
+        
+        if (cam.transform.position.y <= -9.14f)
+        {
+            camIsMoving = false;
+
+            mainMenuScreen.SetActive(true);
+            
+            
         }
     }
 
@@ -93,6 +115,7 @@ public class MenuController : MonoBehaviour
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        
     }
 
     public void GameOver()
