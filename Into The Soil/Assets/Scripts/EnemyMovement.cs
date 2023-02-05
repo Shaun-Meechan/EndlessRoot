@@ -24,10 +24,21 @@ public class EnemyMovement : MonoBehaviour
 
         if (t > 1.0f)
         {
+            GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
             float temp = maximum;
             maximum = minimum;
             minimum = temp;
             t = 0.0f;
         }
+        /*
+        if (speed >= 0)
+        {
+            gameObject.transform.localScale.Set(0.6f, 0.6f, 1f);
+        }
+        else
+        {
+            gameObject.transform.localScale.Set(-0.6f, 0.6f, 1f);
+        }
+        */
     }
 }
