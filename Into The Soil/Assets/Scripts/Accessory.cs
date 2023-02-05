@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Accessory : PickupItem
 {
+    public GameObject getNextAccessory() { return nextAccessory; }
+    public void setNextnextPowerUp(GameObject next) { nextAccessory = next; }
+    GameObject nextAccessory;
+
+    bool isBehind = false;
+    public bool getIsBehind() { return isBehind; }
+    public void setisBehind(bool value) { isBehind = value; }
+
     public enum accessoryType
     {
         sunglasses,

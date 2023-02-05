@@ -44,7 +44,7 @@ public class DifficultyManager : MonoBehaviour
         //currentSpeed += (acceleration * Time.deltaTime);
         currentSpeed = Mathf.Clamp(currentSpeed + (acceleration * Time.deltaTime), 0, 30);
         playerMovement.SetSpeed(currentSpeed);
-        //cameraController.speed = currentSpeed;
+        cameraController.speed = currentSpeed;
     }
 
     void IncreaseDifficulty()

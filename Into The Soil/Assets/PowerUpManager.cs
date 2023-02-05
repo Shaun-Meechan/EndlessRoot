@@ -5,10 +5,10 @@ using UnityEngine;
 public class PowerUpManager : MonoBehaviour
 {
 
-    const int countOfScorePowerUps = 3;
-    public GameObject scorePowerUpPrefab;
-    GameObject[] scorePowerUps = new GameObject[countOfScorePowerUps];
-    GameObject firstAvaliableScorePowerUp;
+    const int countOfAccessoryPickUp = 3;
+    public GameObject[] AccessoryPickUpPrefabs;
+    GameObject[] AccessoryPickUps = new GameObject[countOfAccessoryPickUp];
+    GameObject firstAvaliableAccessoryPickUp;
 
     const int countOfWaterPowerUps = 3;
     public GameObject WaterPowerUpPrefab;
@@ -23,58 +23,128 @@ public class PowerUpManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < countOfScorePowerUps; i++)
+        for (int i = 0; i < countOfAccessoryPickUp; i++)
         {
-            GameObject go = Instantiate(scorePowerUpPrefab, transform.position, Quaternion.identity);
-            scorePowerUps[i] = go;
+            GameObject go = Instantiate(AccessoryPickUpPrefabs[i], transform.position, Quaternion.identity);
+            AccessoryPickUps[i] = go;
             go.SetActive(false);
         }
 
-        for (int i = 0; i < countOfScorePowerUps - 1; i++)
+        for (int i = 0; i < countOfAccessoryPickUp - 1; i++)
         {
-            scorePowerUps[i].GetComponent<ScorePickup>().setNextnextPowerUp(scorePowerUps[i + 1]);
+            AccessoryPickUps[i].GetComponent<Accessory>().setNextnextPowerUp(AccessoryPickUps[i + 1]);
         }
 
-        firstAvaliableScorePowerUp = scorePowerUps[0];
-        scorePowerUps[countOfScorePowerUps - 1].GetComponent<ScorePickup>().setNextnextPowerUp(null);
+        firstAvaliableAccessoryPickUp = AccessoryPickUps[0];
+        AccessoryPickUps[countOfAccessoryPickUp - 1].GetComponent<Accessory>().setNextnextPowerUp(null);
 
 
-        //for (int i = 0; i < countOfWaterPowerUps; i++)
+        for (int i = 0; i < countOfWaterPowerUps; i++)
+        {
+            GameObject go = Instantiate(WaterPowerUpPrefab, transform.position, Quaternion.identity);
+            waterPowerUps[i] = go;
+            go.SetActive(false);
+        }
+
+        for (int i = 0; i < countOfWaterPowerUps - 1; i++)
+        {
+            waterPowerUps[i].GetComponent<Water>().setNextnextPowerUp(waterPowerUps[i + 1]);
+        }
+
+        firstAvaliableWaterPowerUp = waterPowerUps[0];
+        waterPowerUps[countOfWaterPowerUps - 1].GetComponent<Water>().setNextnextPowerUp(null);
+
+        //for (int i = 0; i < countOfNutritionPowerUps; i++)
         //{
-        //    GameObject go = Instantiate(WaterPowerUpPrefab, transform.position, Quaternion.identity);
-        //    waterPowerUps[i] = go;
+        //    GameObject go = Instantiate(nutritionPowerUpPrefab, transform.position, Quaternion.identity);
+        //    nutritionPowerUps[i] = go;
         //    go.SetActive(false);
         //}
 
-        //for (int i = 0; i < countOfWaterPowerUps - 1; i++)
+        //for (int i = 0; i < countOfNutritionPowerUps - 1; i++)
         //{
-            //waterPowerUps[i].GetComponent<WaterPickup>().setNextnextPowerUp(waterPowerUps[i + 1]);
+        //    nutritionPowerUps[i].GetComponent<NutritionPowerUp>().setNextnextPowerUp(nutritionPowerUps[i + 1]);
         //}
 
-        //firstAvaliableWaterPowerUp = waterPowerUps[0];
-        //waterPowerUps[countOfWaterPowerUps - 1].GetComponent<WaterPickup>().setNextnextPowerUp(null);
-
-
-        for (int i = 0; i < countOfNutritionPowerUps; i++)
-        {
-            GameObject go = Instantiate(nutritionPowerUpPrefab, transform.position, Quaternion.identity);
-            nutritionPowerUps[i] = go;
-            go.SetActive(false);
-        }
-
-        for (int i = 0; i < countOfNutritionPowerUps - 1; i++)
-        {
-            nutritionPowerUps[i].GetComponent<NutritionPowerUp>().setNextnextPowerUp(nutritionPowerUps[i + 1]);
-        }
-
-        firstAvaliableScorePowerUp = nutritionPowerUps[0];
-        nutritionPowerUps[countOfNutritionPowerUps - 1].GetComponent<NutritionPowerUp>().setNextnextPowerUp(null);
-
+        //firstAvaliableNutritionPowerUp = nutritionPowerUps[0];
+        //nutritionPowerUps[countOfNutritionPowerUps - 1].GetComponent<NutritionPowerUp>().setNextnextPowerUp(null);
     }
+
+    public void spawnAccessory(float YValue, GameObject tile)
+    {
+        if (firstAvaliableAccessoryPickUp == null)
+        {
+            //We ran out of rocks
+            return;
+        }
+        firstAvaliableAccessoryPickUp.transform.parent = tile.transform;
+        firstAvaliableAccessoryPickUp.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), Quaternion.identity);
+        firstAvaliableAccessoryPickUp.SetActive(true);
+        firstAvaliableAccessoryPickUp = firstAvaliableAccessoryPickUp.GetComponent<Accessory>().getNextAccessory();
+    }    
+    
+    public void spawnWater(float YValue, GameObject tile)
+    {
+        if (firstAvaliableWaterPowerUp == null)
+        {
+            //We ran out of rocks
+            return;
+        }
+        firstAvaliableWaterPowerUp.transform.parent = tile.transform;
+        firstAvaliableWaterPowerUp.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), Quaternion.identity);
+        firstAvaliableWaterPowerUp.SetActive(true);
+        firstAvaliableWaterPowerUp = firstAvaliableAccessoryPickUp.GetComponent<Water>().getNexWaterPowerUp();
+    }    
+    
+    public void spawnNutrition(float YValue, GameObject tile)
+    {
+        if (firstAvaliableNutritionPowerUp == null)
+        {
+            //We ran out of rocks
+            return;
+        }
+        firstAvaliableNutritionPowerUp.transform.parent = tile.transform;
+        firstAvaliableNutritionPowerUp.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), Quaternion.identity);
+        firstAvaliableNutritionPowerUp.SetActive(true);
+        firstAvaliableNutritionPowerUp = firstAvaliableAccessoryPickUp.GetComponent<NutritionPowerUp>().getNextPowerUp();
+    }
+
 
     // Update is called once per frame
     void Update()
     {
+        for (int i = 0; i < countOfAccessoryPickUp; i++)
+        {
+            if (AccessoryPickUps[i].GetComponent<Accessory>().getIsBehind())
+            {
+                AccessoryPickUps[i].GetComponent<Accessory>().setNextnextPowerUp(firstAvaliableAccessoryPickUp);
+                firstAvaliableAccessoryPickUp = AccessoryPickUps[i];
+                firstAvaliableAccessoryPickUp.SetActive(false);
+                firstAvaliableAccessoryPickUp.GetComponent<Accessory>().setisBehind(false);
+            }
+        }        
         
+        for (int i = 0; i < countOfWaterPowerUps; i++)
+        {
+            if (waterPowerUps[i].GetComponent<Water>().getIsBehind())
+            {
+                AccessoryPickUps[i].GetComponent<Water>().setNextnextPowerUp(firstAvaliableWaterPowerUp);
+                firstAvaliableWaterPowerUp = waterPowerUps[i];
+                firstAvaliableWaterPowerUp.SetActive(false);
+                firstAvaliableWaterPowerUp.GetComponent<Water>().setisBehind(false);
+            }
+        }
+        
+        //for (int i = 0; i < countOfNutritionPowerUps; i++)
+        //{
+        //    if (nutritionPowerUps[i].GetComponent<NutritionPowerUp>().getIsBehind())
+        //    {
+        //        nutritionPowerUps[i].GetComponent<NutritionPowerUp>().setNextnextPowerUp(firstAvaliableNutritionPowerUp);
+        //        firstAvaliableNutritionPowerUp = nutritionPowerUps[i];
+        //        firstAvaliableNutritionPowerUp.SetActive(false);
+        //        firstAvaliableNutritionPowerUp.GetComponent<NutritionPowerUp>().setisBehind(false);
+        //    }
+        //}
+
     }
 }
