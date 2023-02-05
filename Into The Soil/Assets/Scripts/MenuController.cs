@@ -41,8 +41,10 @@ public class MenuController : MonoBehaviour
 
     private void Update()
     {
-
-        SplashScreenTransition();
+        if(SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            SplashScreenTransition();
+        }
 
         if (camIsMoving == true)
         {
@@ -130,7 +132,7 @@ public class MenuController : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         gameOverScreen.SetActive(false);
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(sceneIndexToLoad);
     }
 
 

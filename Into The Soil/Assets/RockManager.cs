@@ -22,11 +22,11 @@ public class RockManager : MonoBehaviour
 
         for (int i = 0; i < maxRocks - 1; i++)
         {
-            rockObjects[i].GetComponent<Rock>().setNextRock(rockObjects[i + 1]);
+            rockObjects[i].GetComponent<RedirectionRock>().setNextRock(rockObjects[i + 1]);
         }
 
         firstAvaliableRock = rockObjects[0];
-        rockObjects[maxRocks - 1].GetComponent<Rock>().setNextRock(null);
+        rockObjects[maxRocks - 1].GetComponent<RedirectionRock>().setNextRock(null);
     }
 
     public void spawnRock(float YValue, GameObject tile)
@@ -39,7 +39,7 @@ public class RockManager : MonoBehaviour
         firstAvaliableRock.transform.parent = tile.transform;
         firstAvaliableRock.transform.SetPositionAndRotation(new Vector3(Random.Range(-8, 9), 0 + YValue + (Random.Range(-4, 5)), 0), Quaternion.identity);
         firstAvaliableRock.SetActive(true);
-        firstAvaliableRock = firstAvaliableRock.GetComponent<Rock>().getNextRock();
+        firstAvaliableRock = firstAvaliableRock.GetComponent<RedirectionRock>().getNextRock();
     }
 
     // Update is called once per frame
@@ -47,12 +47,12 @@ public class RockManager : MonoBehaviour
     {
         for (int i = 0; i < maxRocks; i++)
         {
-            if(rockObjects[i].GetComponent<Rock>().getIsBehind())
+            if(rockObjects[i].GetComponent<RedirectionRock>().getIsBehind())
             {
-                rockObjects[i].GetComponent<Rock>().setNextRock(firstAvaliableRock);
+                rockObjects[i].GetComponent<RedirectionRock>().setNextRock(firstAvaliableRock);
                 firstAvaliableRock = rockObjects[i];
                 firstAvaliableRock.SetActive(false);
-                firstAvaliableRock.GetComponent<Rock>().setIsBehind(false);
+                firstAvaliableRock.GetComponent<RedirectionRock>().setIsBehind(false);
             }
         }
     }
